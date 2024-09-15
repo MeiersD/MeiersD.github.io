@@ -1,8 +1,164 @@
 <html>
-    <body>
-        <div>
-            <div class="header">Welcome to my website!</div>
-        </div>
-        <link rel="stylesheet" href="style.css">
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      width: 200px;
+      height: 200px;
+      margin: 0;
+      padding: 0;
+      transition: .4s;
+    }
+
+      body.nightmode {
+        background-color: #121212; /* Dark background */
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+      .button_website {
+        display: block;
+        width: 95%;
+        padding: 5px;
+	      margin: 10px auto 0 auto; /* Center horizontally */
+	      border-radius: 10px;
+	      border: none;
+        font-size: 16px;
+	      font-family: 'Noto Sans JP', sans-serif;
+	      font-weight: 700; /* Use the bold 700 weight */
+	      background-color: #e438bd;
+	      color: white;
+	      box-shadow: 6px 6px 10px #00000090;
+        cursor: pointer;
+      }
+
+      .button_website:active {
+        box-shadow: 60px 60px 100px #0000003d;
+        background-color: #961479;
+      }
+
+      .footer {
+        position: fixed; /* Changed to fixed to stay at the bottom */
+        bottom: 5px; /* Aligns to the bottom of the viewport */
+        left: 5px; /* Aligns to the left of the viewport */
+        width: 100%; /* Full width */
+        display: flex;
+/*        justify-content: space-between; /* Distributes space between items */
+        align-items: center; /* Centers items vertically */
+/*        padding: 5px; /* Adds padding around items */
+      }
+
+      .empty_box{
+        width: 50%;
+      }
+
+    .button_nightMode {
+      width: 30px;
+      height: 30px;
+      background-image: url("images/sun_light.png");
+      background-size: contain;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 6px 6px 10px #00000090;
+      background-color: #e438bd; /* Default color */
+      transition: .4s;
+      cursor: pointer;
+    }
+
+      .button_nightMode:active {
+        background-color: #b23a8e; /* Color when pressed */
+        box-shadow: 60px 60px 100px #0000003d;
+      }
+
+    .button_nightMode.nightmode {
+      background-image: url("images/moon.jpg");
+      background-size: contain;
+    }
+
+    span {
+      color: #e438bd;
+      font-size: 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      background-image: url("images/moon.jpg");
+      background-size: contain;
+    }
+
+      .switch-container {
+	      display: flex;
+	      align-items: center;
+        right: 5px;
+      }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /*        background-color: #ccc; */
+      background-image: url("images/off.png");
+      background-size: contain;
+      transition: .4s;
+      border-radius: 34px;
+      box-shadow: 6px 6px 10px #00000090;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      border-radius: 50%;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+    .slider.nightmode:before {
+      background-color: #3e3e3e;
+    }
+    input:checked + .slider {
+      background-image: url("images/on.png");
+      background-size: contain;
+      /*background-color: #e438bd;*/
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body id="body">
+<img src="images/eigofy_mark6.png" alt="My Image">
+<button class="button_website" id="website_portal">フラッシュカードを開く</button>
+<div class="footer">
+  <button class="button_nightMode" id="nightmode"></button>
+  <div class="empty_box"></div>
+  <div class="switch-container">
+    <!--<span class="switch-text">無効化</span> this means off -->
+    <label class="switch">
+      <input type="checkbox" id="onAndOff">
+      <span class="slider" id="powerSlider"></span>
+    </label>
+  </div>
+
+</div>
+
+
+    <script src="toolbar_popup.js"></script>
+  </body>
 </html>
