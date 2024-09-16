@@ -20,8 +20,11 @@ class PDBfetcher {
                 } catch (error) {
                     console.error("Error fetching PDB:", error);
                     this.home.request_denied_element(); // Handle fetch error
+                    this.not_already_fetching = true; // Re-enable fetching
+                    return;
                 }
-                this.not_already_fetching = true; // Re-enable fetching
+                                //start loading the model
+                //continue with more code that shouldn't be run if there was an error previously
             }
         });
     }

@@ -13,6 +13,7 @@
 class homeLogic {
     constructor(){
         this.notificationElement = document.getElementById("notification");
+        this.input_container = document.getElementById("input-container");
         return;
     }
     showNotification(message, type) {
@@ -28,6 +29,7 @@ class homeLogic {
     request_approved_element(pdb_contents) {
         console.log("pdb found");
         this.showNotification("PDB found", "approved");
+        this.input_container.classList.add('hidden');
     }
 
     request_denied_element(pdb_contents) {
