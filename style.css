@@ -33,3 +33,34 @@ body {
     background-color: white;
     color:black;
 }
+.notification {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly off-screen */
+    transition: opacity 1s ease, transform 1s ease;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px); /* Adjust translateY */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 1000;
+    border: 2px solid;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Move to final position */
+}
+
+.notification.approved {
+    background-color: #95db98; /* Green for approved */
+    color: rgb(2, 113, 2);
+    border-color: rgb(2, 113, 2);
+}
+
+.notification.denied {
+    background-color: #ffa19b; /* Red for denied */
+    color: rgb(124, 4, 4);
+    border-color:  rgb(124, 4, 4);
+}
