@@ -1,15 +1,3 @@
-// class homeLogic {
-//     constructor(){
-//         return;
-//     }
-//     request_approved_element(pdb_contents){
-//         console.log("pdb found")
-//     }
-//     request_denied_element(pdb_contents){
-//         console.log("pdb not found")
-//     }
-// }
-
 class homeLogic {
     constructor(){
         this.notificationElement = document.getElementById("notification");
