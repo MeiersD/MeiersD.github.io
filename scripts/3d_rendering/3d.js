@@ -11,8 +11,8 @@ class test3d {
     async mainSequence(){
         this.initialize_scene();
         this.parse_pdb.get_atom_lines().then(total_steps => {
-            this.loading_bar.show_loading_bar(total_steps);
-            return new Promise(resolve => setTimeout(resolve, 100));
+            //this.loading_bar.show_loading_bar(total_steps);
+            //return new Promise(resolve => setTimeout(resolve, 100));
         }).then(() => {
             return this.parse_pdb.start_parsing();
         }).then(atom_array => {
@@ -45,7 +45,7 @@ class test3d {
             atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
             protein.add(atom);
             boundingBox.expandByObject(atom); // Expand the bounding box to include each atom
-            this.loading_bar.update_loading_bar(); // UPDATE LOADING BAR
+            //this.loading_bar.update_loading_bar(); // UPDATE LOADING BAR
         }
     
         const center = boundingBox.getCenter(new THREE.Vector3());

@@ -24,12 +24,12 @@ class LoadingBar {
         if (this.progress > this.total_steps) {
             this.progress = this.total_steps;
         }
-       
         // Update the width of the loading bar
         const progressPercentage = (this.progress / this.total_steps) * 100; 
+        console.log("progress is:", this.progress, "total steps is:", this.total_steps)
         //this.total_steps is of type promise. I need it to be an int
         this.loading_bar.style.width = `${progressPercentage}%`;
-        console.log("bar updated, it is now", this.progress, "out of", this.total_steps);
+        //console.log("bar updated, it is now", this.progress, "out of", this.total_steps);
         // Check if loading is complete
         if (this.progress === this.total_steps) {
             setTimeout(() => {
