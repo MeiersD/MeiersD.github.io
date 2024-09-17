@@ -30,14 +30,14 @@ class test3d {
         this.scene_container.appendChild(this.renderer.domElement);
 
         this.scene = new THREE.Scene(); //makes the scene
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.z = 200; //sets camera position
     }
 
     set_up_scene(){
         const protein = new THREE.Group();
         const boundingBox = new THREE.Box3(); // To calculate the bounding box of the protein
-
+    
         for (let i = 0; i < this.atom_array.length; i++){
             var geometry = new THREE.SphereGeometry(1, 5, 5);
             var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
@@ -47,20 +47,35 @@ class test3d {
             boundingBox.expandByObject(atom); // Expand the bounding box to include each atom
             this.loading_bar.update_loading_bar(); // UPDATE LOADING BAR
         }
-
+    
         const center = boundingBox.getCenter(new THREE.Vector3());
-        const size = boundingBox.getSize(new THREE.Vector3());
-
-        // Center the protein
-        protein.position.sub(center); // Move the protein so that its center is at the origin
         this.scene.add(protein);
-
+        this.camera.lookAt(center)
+    
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            protein.rotation.x += 0.01; // Rotate the group on the x-axis
-            protein.rotation.y += 0.01; // Rotate the group on the y-axis
+            this.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), 0.005);
+            this.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.005);
             this.renderer.render(this.scene, this.camera);
         }
         animate();
     }
+
+    rotate_around_point(obj, point, axis, theta, pointIsWorld = false){
+  
+        if(pointIsWorld){
+            obj.parent.localToWorld(obj.position); // compensate for world coordinate
+        }
+      
+        obj.position.sub(point); // remove the offset
+        obj.position.applyAxisAngle(axis, theta); // rotate the POSITION
+        obj.position.add(point); // re-add the offset
+      
+        if(pointIsWorld){
+            obj.parent.worldToLocal(obj.position); // undo world coordinates compensation
+        }
+      
+        obj.rotateOnAxis(axis, theta); // rotate the OBJECT
+    }
+    
 }
