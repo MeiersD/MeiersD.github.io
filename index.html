@@ -8,8 +8,18 @@
             <input type="text" id="pdb-input" name="name" placeholder="e.g. 1aki">
         </div>
         <div id="notification" class="notification"></div>
+        <div id="scene-container" class="scene-container"></div>
+        <div class="loading-bar-container" id="loading-bar-container">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        
+            
         <link rel="stylesheet" href="style.css">
         <!--<script>home.js</script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="scripts/3d_rendering/atom.js"></script>
+        <script src="scripts/3d_rendering/parse_pdb.js"></script>
+        <script src="scripts/3d_rendering/3d.js"></script>
         <script src="scripts/home_logic.js"></script>
         <script src="scripts/pdb_fetcher.js"></script>
         <script src="scripts/button_manager.js"></script>

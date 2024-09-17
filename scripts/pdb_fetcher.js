@@ -23,6 +23,9 @@ class PDBfetcher {
                     this.not_already_fetching = true; // Re-enable fetching
                     return;
                 }
+
+                const temp = new test3d(this.pdb_contents);
+                temp.mainSequence();
                                 //start loading the model
                 //continue with more code that shouldn't be run if there was an error previously
             }
@@ -35,6 +38,5 @@ class PDBfetcher {
             throw new Error('This was not a real pdb code');
         }
         this.pdb_contents = await response.text();
-        console.log(this.pdb_contents); // Process the PDB data
     }
 }
