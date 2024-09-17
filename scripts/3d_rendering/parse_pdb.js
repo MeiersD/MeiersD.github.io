@@ -34,10 +34,18 @@ class parsePDB {
                 z_coord
             ));
         }
+        //remove waters
+        this.atom_array = this.atom_array.filter(this.remove_waters);
+        console.log("test")
+        console.log(this.atom_array)
         return this.atom_array;
     }
 
-    async get_num_atoms(){
+    remove_waters(single_atom){
+        return single_atom.residue_type !== 'HOH'; //returns true or false
+    }
+
+    get_num_atoms(){
         // Split the file into lines
         const lines = this.file.split('\n');
         // Filter lines that start with "ATOM" and count them
