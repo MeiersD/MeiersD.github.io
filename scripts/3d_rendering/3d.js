@@ -36,14 +36,23 @@ class test3d {
 
     set_up_scene(){
         const protein = new THREE.Group();
+        const boundingBox = new THREE.Box3(); // To calculate the bounding box of the protein
+
         for (let i = 0; i < this.atom_array.length; i++){
             var geometry = new THREE.SphereGeometry(1, 5, 5);
             var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
             var atom = new THREE.Mesh(geometry, material);
             atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
             protein.add(atom);
+            boundingBox.expandByObject(atom); // Expand the bounding box to include each atom
             this.loading_bar.update_loading_bar(); // UPDATE LOADING BAR
         }
+
+        const center = boundingBox.getCenter(new THREE.Vector3());
+        const size = boundingBox.getSize(new THREE.Vector3());
+
+        // Center the protein
+        protein.position.sub(center); // Move the protein so that its center is at the origin
         this.scene.add(protein);
 
         const animate = () => { // Animation loop
