@@ -4,6 +4,10 @@ class parsePDB {
         this.file = file;
         this.atom_array = [];
     }
+    async get_atom_lines(){
+        const atom_lines = await this.get_num_atoms();
+        return atom_lines.length;
+    }
     async start_parsing(){
         const atom_lines = await this.get_num_atoms();
         const num_atoms = atom_lines.length;
@@ -35,23 +39,24 @@ class parsePDB {
             ));
         }
         //remove waters
-        this.atom_array = this.atom_array.filter(this.remove_waters);
-        console.log("test")
-        console.log(this.atom_array)
+        //this.atom_array = this.atom_array.filter(this.remove_waters);
         return this.atom_array;
     }
 
-    remove_waters(single_atom){
-        return single_atom.residue_type !== 'HOH'; //returns true or false
-    }
+    // remove_waters(single_atom){
+    //     return single_atom.residue_type !== 'HOH'; //returns true or false
+    // }
 
-    get_num_atoms(){
+    get_num_atoms() {
         // Split the file into lines
         const lines = this.file.split('\n');
-        // Filter lines that start with "ATOM" and count them
-        const atom_lines = lines.filter(line => 
-            line.startsWith("ATOM") || line.startsWith("HETATM")
-        );
+    
+        // Filter lines that start with "ATOM" or "HETATM" but exclude lines with 'HOH' in columns 17–20
+        const atom_lines = lines.filter(line => {
+            const atomType = line.slice(17, 20).trim();
+            return (line.startsWith("ATOM") || line.startsWith("HETATM")) && atomType !== 'HOH';
+        });
+    
         return atom_lines;
     }
 }
