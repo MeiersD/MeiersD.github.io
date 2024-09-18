@@ -1,4 +1,4 @@
-import * as THREE from '../../node_modules/three/build/three.module.js';
+import * as THREE from '../templates/three.module.js';
 import { OrbitControls } from '../templates/OrbitControls.js'; // Correct import path
 
 import { parsePDB } from './parse_pdb.js';
