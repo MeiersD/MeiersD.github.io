@@ -1,3 +1,9 @@
+import * as THREE from '../../node_modules/three/build/three.module.js';
+import { OrbitControls } from '../templates/OrbitControls.js'; // Correct import path
+
+import { parsePDB } from './parse_pdb.js';
+import { LoadingBar } from './loading_bar.js';
+
 class test3d {
     constructor(file){
         this.scene_container = document.getElementById("scene-container");
@@ -45,10 +51,9 @@ class test3d {
     set_up_scene(){
         const protein = new THREE.Group();
         const boundingBox = new THREE.Box3(); // To calculate the bounding box of the protein
-        controls = new THREE.OrbitControls( this.camera, this.renderer.domElement)
     
         for (let i = 0; i < this.atom_array.length; i++){
-            var geometry = new THREE.SphereGeometry(0.5, 5, 5);
+            var geometry = new THREE.SphereGeometry(0.5, 15, 15);
             var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
             var atom = new THREE.Mesh(geometry, material);
             atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
@@ -59,12 +64,17 @@ class test3d {
     
         const center = boundingBox.getCenter(new THREE.Vector3());
         this.scene.add(protein);
+        const controls = new OrbitControls( this.camera, this.renderer.domElement)
+        controls.target.copy(center); // Set the target to the center of the bounding box
+        controls.update(); // Update the controls to reflect the new target
+
         this.camera.lookAt(center)
+        
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            this.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), 0.005);
-            this.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.005);
+            this.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), 0.0005);
+            this.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.0005);
             this.renderer.render(this.scene, this.camera);
         }
         animate();
@@ -88,3 +98,5 @@ class test3d {
     }
     
 }
+
+export { test3d };

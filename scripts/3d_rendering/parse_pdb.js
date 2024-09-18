@@ -1,3 +1,5 @@
+import { Atom } from './atom.js';
+
 class parsePDB {
     constructor(file, test3d){
         this.test3d = test3d;
@@ -60,3 +62,5 @@ class parsePDB {
         return atom_lines;
     }
 }
+
+export { parsePDB };

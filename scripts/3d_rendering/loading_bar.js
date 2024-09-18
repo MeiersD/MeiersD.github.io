@@ -43,5 +43,6 @@ class LoadingBar {
         this.loading_bar.classList.remove('active');
         this.loading_bar.style.width = '0%'; // Reset width for future uses
     }
-
 }
+
+export { LoadingBar };

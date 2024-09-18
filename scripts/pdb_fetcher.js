@@ -1,3 +1,5 @@
+import { test3d } from './3d_rendering/3d.js';
+
 class PDBfetcher {
     constructor(home){
         this.home = home;
@@ -40,3 +42,5 @@ class PDBfetcher {
         this.pdb_contents = await response.text();
     }
 }
+
+export { PDBfetcher };

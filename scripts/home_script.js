@@ -1,3 +1,6 @@
+import { homeLogic } from './home_logic.js';
+import { PDBfetcher } from './pdb_fetcher.js';
+import { ButtonManager } from './button_manager.js';
 /*****************************************************
 * creates an instance of home which will be          *
 * passed to the other .js scripts to modify the html *

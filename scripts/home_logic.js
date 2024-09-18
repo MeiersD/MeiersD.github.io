@@ -25,3 +25,5 @@ class homeLogic {
         this.showNotification("PDB not found", "denied");
     }
 }
+
+export { homeLogic };

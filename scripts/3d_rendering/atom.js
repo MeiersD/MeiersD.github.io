@@ -12,3 +12,5 @@ class Atom {
         return;
     }
 }
+
+export { Atom };

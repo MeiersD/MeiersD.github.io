@@ -9,3 +9,4 @@ class ButtonManager {
     }
 }
 
+export { ButtonManager };
