@@ -69,12 +69,12 @@ class test3d {
         controls.update(); // Update the controls to reflect the new target
 
         this.camera.lookAt(center)
-        
+        controls.maxDistance = 750;
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            this.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), 0.0005);
-            this.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.0005);
+            //this.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), 0.0005);
+            //this.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.0005);
             this.renderer.render(this.scene, this.camera);
         }
         animate();
