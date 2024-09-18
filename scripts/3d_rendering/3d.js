@@ -32,15 +32,24 @@ class test3d {
         this.scene = new THREE.Scene(); //makes the scene
         this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.z = 200; //sets camera position
+
+        window.addEventListener('resize', () => {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            this.renderer.setSize(width, height);
+            this.camera.aspect = width/height;
+            this.camera.updateProjectionMatrix();
+        });
     }
 
     set_up_scene(){
         const protein = new THREE.Group();
         const boundingBox = new THREE.Box3(); // To calculate the bounding box of the protein
+        controls = new THREE.OrbitControls( this.camera, this.renderer.domElement)
     
         for (let i = 0; i < this.atom_array.length; i++){
-            var geometry = new THREE.SphereGeometry(1, 5, 5);
-            var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            var geometry = new THREE.SphereGeometry(0.5, 5, 5);
+            var material = new THREE.MeshBasicMaterial({ color: 0x808080 });
             var atom = new THREE.Mesh(geometry, material);
             atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
             protein.add(atom);
