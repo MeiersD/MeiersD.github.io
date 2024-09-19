@@ -82,23 +82,11 @@ class test3d {
 
         camera.lookAt(center)
         controls.maxDistance = 750;
-
-        // const adjustSpotlightPosition = () => {
-        //     // Calculate the direction from the camera to the center
-        //     const direction = new THREE.Vector3().subVectors(center, camera.position).normalize();
-        
-        //     // Define a scalar to control how far back the spotlight is positioned relative to the camera
-        //     const scalar = 50; // You can tweak this value
-        
-        //     // Adjust the spotlight's position by moving it along the direction vector from the camera
-        //     spotlight.position.copy(camera.position).addScaledVector(direction, scalar);
-        // };
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.001);
             spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
-            //adjustSpotlightPosition();
             renderer.render(scene, camera);
         }
         animate();
