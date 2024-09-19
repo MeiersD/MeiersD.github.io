@@ -22,9 +22,16 @@ class ButtonManager {
                 if(this.residue_color_menu) this.residue_color_menu.remove();
                 this.uniform_color_menu = document.createElement('uniform-color-menu');
                 this.animation_menu_color.appendChild(this.uniform_color_menu);
-                this.uniform_color_menu.innerHTML = 
-                    `
-                    <div>Inner HTML here</div>
+                this.uniform_color_menu.innerHTML = `
+
+                    <div>
+                        <label for="uniform-color-select">Select color:</label>
+                        <select id="uniform-color-select">
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                        </select>
+                    </div>
                     `;
                 break;
             case "atomic-color":
@@ -32,9 +39,14 @@ class ButtonManager {
                 if(this.residue_color_menu) this.residue_color_menu.remove();
                 this.atomic_color_menu = document.createElement('atomic-color-menu');
                 this.animation_menu_color.appendChild(this.atomic_color_menu);
-                this.atomic_color_menu.innerHTML = 
-                    `
-                    <div>Inner HTML here</div>
+                this.atomic_color_menu.innerHTML = `
+                    <div>
+                        <label for="atomic-color-select">Select atomic color scheme:</label>
+                        <select id="atomic-color-select">
+                            <option value="classic">CPK</option>
+                            <option value="pastel">Jmol</option>
+                        </select>
+                    </div>
                     `;
                 break;
             case "residue-color":
@@ -42,32 +54,35 @@ class ButtonManager {
                 if(this.uniform_color_menu) this.uniform_color_menu.remove();
                 this.residue_color_menu = document.createElement('residue-color-menu');
                 this.animation_menu_color.appendChild(this.residue_color_menu);
-                this.residue_color_menu.innerHTML = 
-                    `
-                    <div>Inner HTML here</div>
+                this.residue_color_menu.innerHTML = `
+                    <div>
+                        <label for="residue-color-select">Select residue color scheme:</label>
+                        <select id="residue-color-select">
+                            <option value="magma">CPK</option>
+                            <option value="plasma">Jmol</option>
+                        </select>
+                    </div>
                     `;
                 break;
             case "on-rotation":
                 this.on_rotation_menu = document.createElement('on-rotation-menu');
                 this.animation_menu_rotation.appendChild(this.on_rotation_menu);
-                this.on_rotation_menu.innerHTML = 
-                    `
-                    <div>Inner HTML here</div>
+                this.on_rotation_menu.innerHTML = `
+                    <div>
+                        <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360"></div>
+                        <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360"></div>
+                        <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360"></div>
+                    </div>
                     `;
                 break;
             case "off-rotation":
                 if (this.on_rotation_menu) this.on_rotation_menu.remove();
                 break;
             case "on-trace":
-                this.on_trace_menu = document.createElement('on-trace-menu');
-                this.animation_menu_trace.appendChild(this.on_trace_menu);
-                this.on_trace_menu.innerHTML = 
-                    `
-                    <div>Inner HTML here</div>
-                    `;
+                //call some function to connect all atoms, add it as a new object, then remove the original protein from the scene.
                 break;
             case "off-trace":
-                if (this.on_trace_menu) this.on_trace_menu.remove();
+                //call some function to remove all connections from the scene, then remake all atoms
                 break;
         }
         // this.initiate_radio_event_listeners(value);
