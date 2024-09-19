@@ -20,9 +20,19 @@ function rotate_around_point(obj, point, axis, theta, pointIsWorld = false){
     obj.rotateOnAxis(axis, theta); // rotate the OBJECT
     return;
 }
+function add_resize_listener(renderer, camera){
+    window.addEventListener('resize', () => {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    });
+}
 
 const animation_utils = {
     rotate_around_point: rotate_around_point,
+    add_resize_listener: add_resize_listener
 };
 
 export { animation_utils };

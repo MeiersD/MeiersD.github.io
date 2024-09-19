@@ -17,7 +17,7 @@ class homeLogic {
     request_approved_element(pdb_contents) {
         console.log("pdb found");
         this.showNotification("PDB found", "approved");
-        this.input_container.classList.add('hidden');
+        //this.input_container.classList.add('hidden');
     }
 
     request_denied_element(pdb_contents) {

@@ -21,6 +21,7 @@
     opacity: 1;
     transition: 1s;
     z-index: 10;
+    bottom:20px;
 }
 
 .input-container.hidden {
@@ -52,9 +53,7 @@ body {
     border-radius: 5px;
     font-size: 16px;
     z-index: 10;
-    border: 2px solid;
-}
-
+    border: 2px solid;}
 .notification.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0); /* Move to final position */}
@@ -69,6 +68,8 @@ body {
 
 .scene-container {
     position: fixed;
+    width: 80%;
+    height:100%;
     top: 0;
     right: 0;
     opacity: 0;

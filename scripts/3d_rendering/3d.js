@@ -9,16 +9,18 @@ import { LoadingBar } from './loading_bar.js';
 const scene = new THREE.Scene(); //makes the scene
 const loading_bar = new LoadingBar();
 const scene_container = document.getElementById("scene-container");
+const render_width = scene_container.offsetWidth;
+const render_height = scene_container.offsetHeight;
+const renderer = new THREE.WebGLRenderer();
+const camera = new THREE.PerspectiveCamera(50, render_width / render_height, 0.1, 1000);
+
 
 class test3d {
     constructor(file){
         //this.animation_menu = document.getElementById("animation-menu");
         this.parse_pdb = new parsePDB(file, this);
         this.atom_array = [];
-        this.renderer = new THREE.WebGLRenderer();
-
-
-
+        
     }
 
     async mainSequence(){
@@ -38,32 +40,12 @@ class test3d {
     }
 
     initialize_scene(){
-        // Set the dimensions of the scene container
-        const containerWidth = 80;  // Customize the width
-        const containerHeight = 100; // Customize the height
-        // Apply these dimensions to the scene container
-        scene_container.style.width = `${containerWidth}%`;
-        scene_container.style.height = `${containerHeight}%`;
-        // Add the 'active' class and set the renderer size accordingly
         scene_container.classList.add("active");
-        //this.animation_menu.classList.add("active");
-
-        const render_width = scene_container.offsetWidth;
-        const render_height = scene_container.offsetHeight;
-        this.renderer.setSize(render_width, render_height);
-
-        // Append the renderer to the scene container
-        scene_container.appendChild(this.renderer.domElement);
-        this.camera = new THREE.PerspectiveCamera(50, render_width / render_height, 0.1, 1000);
-        this.camera.position.z = 200; //sets camera position
-
-        window.addEventListener('resize', () => {
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-            this.renderer.setSize(width, height);
-            this.camera.aspect = width/height;
-            this.camera.updateProjectionMatrix();
-        });
+        
+        renderer.setSize(render_width, render_height);
+        scene_container.appendChild(renderer.domElement);
+        camera.position.z = 200; //sets camera position
+        animation_utils.add_resize_listener(renderer, camera);
     }
 
     set_up_scene(){
@@ -83,17 +65,19 @@ class test3d {
     
         const center = boundingBox.getCenter(new THREE.Vector3());
         scene.add(protein);
-        const controls = new OrbitControls( this.camera, this.renderer.domElement)
+
+        
+        const controls = new OrbitControls( camera, renderer.domElement)
         controls.target.copy(center); // Set the target to the center of the bounding box
         controls.update(); // Update the controls to reflect the new target
 
-        this.camera.lookAt(center)
+        camera.lookAt(center)
         controls.maxDistance = 750;
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.001);
-            this.renderer.render(scene, this.camera);
+            renderer.render(scene, camera);
         }
         animate();
     }    
