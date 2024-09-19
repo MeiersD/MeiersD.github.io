@@ -12,7 +12,9 @@ const scene_container = document.getElementById("scene-container");
 const render_width = scene_container.offsetWidth;
 const render_height = scene_container.offsetHeight;
 const renderer = new THREE.WebGLRenderer();
-const camera = new THREE.PerspectiveCamera(20, render_width / render_height, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(15, render_width / render_height, 0.1, 1000);
+const light_color = 0xFFFFFF;
+const spotlight_power = 90000.0;
 
 
 class test3d {
@@ -65,8 +67,13 @@ class test3d {
     
         const center = boundingBox.getCenter(new THREE.Vector3());
         scene.add(protein);
-        var lighting = new THREE.DirectionalLight(0xFFFFFF, 5.0);
-        scene.add(lighting);
+    
+
+        const spotlight = new THREE.SpotLight(light_color, spotlight_power);
+        spotlight.position.copy(camera.position);
+        spotlight.target.position.copy(center);
+        scene.add(spotlight); // Add the spotlight to the scene
+        scene.add(spotlight.target); // Ensure the target is added to the scene
         
         const controls = new OrbitControls( camera, renderer.domElement)
         controls.target.copy(center); // Set the target to the center of the bounding box
