@@ -55,7 +55,7 @@ class test3d {
         for (let i = 0; i < this.atom_array.length; i++){
             var atom_color = this.atom_array[i].color;
             var geometry = new THREE.SphereGeometry(0.5, 15, 15);
-            var material = new THREE.MeshBasicMaterial({ color: atom_color });
+            var material = new THREE.MeshPhongMaterial({ color: atom_color });
             var atom = new THREE.Mesh(geometry, material);
             atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
             protein.add(atom);
@@ -65,7 +65,8 @@ class test3d {
     
         const center = boundingBox.getCenter(new THREE.Vector3());
         scene.add(protein);
-
+        var lighting = new THREE.DirectionalLight(0xFFFFFF, 5.0);
+        scene.add(lighting);
         
         const controls = new OrbitControls( camera, renderer.domElement)
         controls.target.copy(center); // Set the target to the center of the bounding box
