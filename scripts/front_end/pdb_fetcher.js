@@ -6,6 +6,7 @@ class PDBfetcher {
         this.pdb_code = '';
         this.not_already_fetching = true;
         this.pdb_contents = '';
+        this.keyword = '';
     }
 
     async check_pdb_input(pdb_input) {
@@ -31,6 +32,18 @@ class PDBfetcher {
                     this.not_already_fetching = true; 
                 }).then(() => {
                     console.log("fetching re-enabled");
+                    this.get_keyword(this.pdb_contents);
+                }).then(() => {
+                    document.getElementById("animation-menu-code").innerHTML = 
+                        "PDB Code:<br>"
+                        + this.pdb_code.toUpperCase();
+                    document.getElementById("animation-menu-description").innerHTML = 
+                        "<br><br>Macromolecule type:<br>" 
+                        + this.keyword;
+                }).then(() => {
+                    console.log("");
+                }).then(() => {
+                    console.log("");
                 });
                 
                                 //start loading the model
@@ -45,6 +58,20 @@ class PDBfetcher {
             throw new Error('This was not a real pdb code');
         }
         this.pdb_contents = await response.text();
+    }
+
+    get_keyword(file) {
+        const lines = file.split('\n');
+        const keyword_line = lines.filter(line => {
+            return line.startsWith("KEYWDS");
+        });
+        const keyword_str = keyword_line[0]; // Access the first (and likely only) matching line
+        const myInt = keyword_str.indexOf(','); // Find the index of the comma
+        this.keyword = keyword_str.slice(10, myInt).trim(); // Extract the keyword starting from index 11
+        this.keyword = this.keyword.toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' ');
     }
 }
 

@@ -1,0 +1,50 @@
+.animation-menu {
+    position: fixed;
+    left:0;
+    bottom: 0;
+    width:20%;
+    height: 93%;
+    color: white;
+    background-color: #242424;
+    padding: 0;
+
+}
+
+.animation-menu-code, .animation-menu-description {
+    margin-top: 0px;
+    font-size:normal;
+    padding: 20px;
+    position: absolute;
+    /* text-align: center; */
+    
+}
+
+.animation-menu-description {
+    top: 10px;
+}
+
+
+
+.input-container {
+    position: absolute;
+    margin-top: 20px;
+    text-align: center;
+    opacity: 1;
+    transition: 1s;
+    z-index: 10;
+    bottom:20px;
+    padding: 20px;
+}
+
+.input-container.hidden {
+    opacity: 1;
+}
+
+input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 75px;
+    background-color: white;
+}
