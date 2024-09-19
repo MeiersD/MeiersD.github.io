@@ -9,48 +9,16 @@ class PDBfetcher {
         this.keyword = '';
     }
 
-    async check_pdb_input(pdb_input) {
+    
+    check_pdb_input(pdb_input) {
         pdb_input.addEventListener('keydown', async (event) => {
             if (event.key === "Enter" && this.not_already_fetching) {
-                this.pdb_code = pdb_input.value; // Save the value of the pdb_code the user inputted
-                console.log("You have inputted the code: ", this.pdb_code, "\nBeginning fetching now...");
-                this.not_already_fetching = false; // Stops the user from overloading the function
-                this.pdb_contents = ''; // Reset pdb_contents here
-                
-                try {
-                    await this.fetch_pdb_from_rcsb(); // Wait for fetch to complete
-                    this.home.request_approved_element(this.pdb_contents); 
-                } catch (error) {
-                    console.error("Error fetching PDB:", error);
-                    this.home.request_denied_element(); // Handle fetch error
-                    this.not_already_fetching = true; // Re-enable fetching
-                    return;
-                }
-
-                const temp = new test3d(this.pdb_contents);
-                temp.mainSequence().then(() => {
-                    this.not_already_fetching = true; 
-                }).then(() => {
-                    console.log("fetching re-enabled");
-                    this.get_keyword(this.pdb_contents);
-                }).then(() => {
-                    document.getElementById("animation-menu-code").innerHTML = 
-                        "PDB Code:<br>"
-                        + this.pdb_code.toUpperCase();
-                    document.getElementById("animation-menu-description").innerHTML = 
-                        "<br><br>Macromolecule type:<br>" 
-                        + this.keyword;
-                }).then(() => {
-                    console.log("");
-                }).then(() => {
-                    console.log("");
-                });
-                
-                                //start loading the model
-                //continue with more code that shouldn't be run if there was an error previously
+                this.send_message_to_build_scene(pdb_input.value); // Save the value of the pdb_code the user inputted
             }
         });
     }
+
+
 
     async fetch_pdb_from_rcsb() {
         const response = await fetch(`https://files.rcsb.org/view/${this.pdb_code}.pdb`);
@@ -73,6 +41,46 @@ class PDBfetcher {
             .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
             .join(' ');
     }
+
+    async send_message_to_build_scene(pdb_input){
+        this.pdb_code = pdb_input;
+        console.log("You have inputted the code: ", this.pdb_code, "\nBeginning fetching now...");
+        this.not_already_fetching = false; // Stops the user from overloading the function
+        this.pdb_contents = ''; // Reset pdb_contents here
+        
+        try {
+            await this.fetch_pdb_from_rcsb(); // Wait for fetch to complete
+            this.home.request_approved_element(this.pdb_contents); 
+        } catch (error) {
+            console.error("Error fetching PDB:", error);
+            this.home.request_denied_element(); // Handle fetch error
+            this.not_already_fetching = true; // Re-enable fetching
+            return;
+        }
+
+        const temp = new test3d(this.pdb_contents);
+        temp.mainSequence().then(() => {
+            this.not_already_fetching = true; 
+        }).then(() => {
+            console.log("fetching re-enabled");
+            this.get_keyword(this.pdb_contents);
+        }).then(() => {
+            document.getElementById("animation-menu-code").innerHTML = 
+                "<span style='font-size: larger;'>PDB Code:</span><br>"
+                + this.pdb_code.toUpperCase();
+            document.getElementById("animation-menu-description").innerHTML = 
+                "<br><br><span style='font-size: larger;'>Macromolecule type:</span><br>" 
+                + this.keyword;
+        }).then(() => {
+            console.log("");
+        }).then(() => {
+            console.log("");
+        });
+        
+                        //start loading the model
+        //continue with more code that shouldn't be run if there was an error previously
+    }
+
 }
 
 export { PDBfetcher };

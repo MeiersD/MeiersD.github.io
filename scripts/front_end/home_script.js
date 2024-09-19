@@ -17,4 +17,15 @@ const pdb_fetcher = new PDBfetcher(home);
 ***************************************************/
 const button_manager = new ButtonManager(pdb_fetcher, home);
 
+/********************************************
+* Initiates event listeners for all buttons *
+*********************************************/
 button_manager.initiate_button_event_listeners();
+
+/*********************************************
+* Automatically loads the DNA upon page load *
+*********************************************/
+document.addEventListener("DOMContentLoaded", function() {
+    pdb_fetcher.send_message_to_build_scene("1fky")
+  });
+

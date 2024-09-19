@@ -10,7 +10,7 @@
 
 }
 
-.animation-menu-code, .animation-menu-description {
+.animation-menu-code, .animation-menu-description, .animation-menu-settings {
     margin-top: 0px;
     font-size:normal;
     padding: 20px;
@@ -23,7 +23,14 @@
     top: 10px;
 }
 
+.animation-menu-settings-container {
 
+}
+
+.animation-menu-settings {
+    top: 95px;
+    font-size: larger;
+}
 
 .input-container {
     position: absolute;
