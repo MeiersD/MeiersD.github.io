@@ -26,6 +26,9 @@ button_manager.initiate_button_event_listeners();
 * Automatically loads the DNA upon page load *
 *********************************************/
 document.addEventListener("DOMContentLoaded", function() {
+    button_manager.radio_switch('uniform-color');
+    button_manager.radio_switch('on-rotation');
+    button_manager.radio_switch('off-trace');
     pdb_fetcher.send_message_to_build_scene("1fky");
     //initialize_button_settings();
 });
