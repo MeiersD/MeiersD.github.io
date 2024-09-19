@@ -50,6 +50,21 @@ class ButtonManager {
         +   "Rainbow: Residues are colored diversely"
         this.residue_button.title = this.color_residue_title;
 
+        this.on_rotation_button_title = 
+            "Automatically rotate the macromolecule along one of these axis"
+        this.on_rotation_button.title = this.on_rotation_button_title;
+
+        this.off_rotation_button_title = 
+            "Remove automatic rotation of the macromolecule"
+        this.off_rotation_button.title = this.off_rotation_button_title;
+
+        this.on_trace_button_title = 
+            "Replace atomistic model with line tracing adjacent atoms "
+        this.on_trace_button.title = this.on_trace_button_title;
+
+        this.off_trace_button_title = 
+            "Replace trace model with atomistic model"
+        this.off_trace_button.title = this.off_trace_button_title;
     }
 
     radio_switch(value){
@@ -107,7 +122,7 @@ class ButtonManager {
                 this.on_rotation_menu = document.createElement('on-rotation-menu');
                 this.animation_menu_rotation.appendChild(this.on_rotation_menu);
                 this.on_rotation_menu.innerHTML = `
-                    <div>
+                    <div title="this.on-rotation_button_title">
                         <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="90"></div>
                         <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="0"></div>
                         <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
