@@ -14,7 +14,7 @@ const render_height = scene_container.offsetHeight;
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(15, render_width / render_height, 0.1, 1000);
 const light_color = 0xFFFFFF;
-const spotlight_power = 90000.0;
+var spotlight_power = 2.0;
 
 
 class test3d {
@@ -72,6 +72,7 @@ class test3d {
         const spotlight = new THREE.SpotLight(light_color, spotlight_power);
         spotlight.position.copy(camera.position);
         spotlight.target.position.copy(center);
+        spotlight.decay = 0;
         scene.add(spotlight); // Add the spotlight to the scene
         scene.add(spotlight.target); // Ensure the target is added to the scene
         
@@ -81,10 +82,23 @@ class test3d {
 
         camera.lookAt(center)
         controls.maxDistance = 750;
+
+        // const adjustSpotlightPosition = () => {
+        //     // Calculate the direction from the camera to the center
+        //     const direction = new THREE.Vector3().subVectors(center, camera.position).normalize();
+        
+        //     // Define a scalar to control how far back the spotlight is positioned relative to the camera
+        //     const scalar = 50; // You can tweak this value
+        
+        //     // Adjust the spotlight's position by moving it along the direction vector from the camera
+        //     spotlight.position.copy(camera.position).addScaledVector(direction, scalar);
+        // };
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.001);
+            spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
+            //adjustSpotlightPosition();
             renderer.render(scene, camera);
         }
         animate();
