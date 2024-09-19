@@ -10,8 +10,45 @@ class ButtonManager {
         this.animation_menu_rotation = document.getElementById('animation-menu-rotation');
         this.animation_menu_trace = document.getElementById('animation-menu-trace');
 
+        this.uniform_button = document.getElementById('uniform-button');
+        this.atomic_button = document.getElementById('atomic-button');
+        this.residue_button = document.getElementById('residue-button');
+        this.on_rotation_button = document.getElementById('on-rotation-button');
+        this.off_rotation_button = document.getElementById('off-rotation-button');
+        this.on_trace_button = document.getElementById('on-trace-button');
+        this.off_trace_button = document.getElementById('off-trace-button');
 
-        //
+        this.color_uniform_title =
+            "White:\tall atoms colored white\n"
+        +   "Cyan: \tall atoms colored cyan\n"
+        +   "Magenta:   all atoms colored magenta\n"
+        +   "Gold: \tall atoms colored gold\n"
+        this.uniform_button.title = this.color_uniform_title;
+
+        this.color_atomic_title =        
+            "Classic:    Carbons are charcoal\n"
+        +   "\t\tNitrogens are blue\n"
+        +   "\t\tOxygens are red\n"
+        +   "\t\tSulfurs are yellow\n"
+        +   "\t\tPhosphorous are orange\n"
+        +   "\t\tHydrogens are white\n"
+        +   "Pastel:     Carbons are slate-gray\n"
+        +   "\t\tNitrogens are baby-blue\n"
+        +   "\t\tOxygens are baby-pink\n"
+        +   "\t\tSulfurs are sunshine\n"
+        +   "\t\tPhosphorous are neon-orange\n"
+        +   "\t\tHydrogens are off-white\n"
+        this.atomic_button.title = this.color_atomic_title;
+
+        this.color_residue_title =
+            "Magma:  Browns are hydrophobic\n"
+        +   "\t\tReds are polar\n"
+        +   "\t\tYellows are hydrophilic\n"
+        +   "Plasma:   Purples are hydrophobic\n"
+        +   "\t\tBlues and greens are polar\n"
+        +   "\t\tYellows are hydrophilic\n"
+        +   "Rainbow: Residues are colored diversely"
+        this.residue_button.title = this.color_residue_title;
 
     }
 
@@ -24,12 +61,13 @@ class ButtonManager {
                 this.animation_menu_color.appendChild(this.uniform_color_menu);
                 this.uniform_color_menu.innerHTML = `
 
-                    <div>
+                    <div title="${this.color_uniform_title.replace(/\n/g, ' &#10;')}">
                         <label for="uniform-color-select">Select color:</label>
                         <select id="uniform-color-select">
-                            <option value="red">Red</option>
-                            <option value="green">Green</option>
-                            <option value="blue">Blue</option>
+                            <option value="white">White</option>
+                            <option value="cyan">Cyan</option>
+                            <option value="magenta">Magenta</option>
+                            <option value="gold">Gold</option>
                         </select>
                     </div>
                     `;
@@ -40,11 +78,11 @@ class ButtonManager {
                 this.atomic_color_menu = document.createElement('atomic-color-menu');
                 this.animation_menu_color.appendChild(this.atomic_color_menu);
                 this.atomic_color_menu.innerHTML = `
-                    <div>
+                    <div title="${this.color_atomic_title.replace(/\n/g, ' &#10;')}">
                         <label for="atomic-color-select">Select atomic color scheme:</label>
                         <select id="atomic-color-select">
-                            <option value="classic">CPK</option>
-                            <option value="pastel">Jmol</option>
+                            <option value="classic">Classic</option>
+                            <option value="pastel">Pastel</option>
                         </select>
                     </div>
                     `;
@@ -55,11 +93,12 @@ class ButtonManager {
                 this.residue_color_menu = document.createElement('residue-color-menu');
                 this.animation_menu_color.appendChild(this.residue_color_menu);
                 this.residue_color_menu.innerHTML = `
-                    <div>
+                    <div title="${this.color_residue_title.replace(/\n/g, ' &#10;')}">
                         <label for="residue-color-select">Select residue color scheme:</label>
                         <select id="residue-color-select">
-                            <option value="magma">CPK</option>
-                            <option value="plasma">Jmol</option>
+                            <option value="magma">Magma</option>
+                            <option value="plasma">Plasma</option>
+                            <option value="rainbow">Rainbow</option>
                         </select>
                     </div>
                     `;
@@ -69,9 +108,9 @@ class ButtonManager {
                 this.animation_menu_rotation.appendChild(this.on_rotation_menu);
                 this.on_rotation_menu.innerHTML = `
                     <div>
-                        <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360"></div>
-                        <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360"></div>
-                        <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360"></div>
+                        <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="90"></div>
+                        <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="0"></div>
+                        <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
                     </div>
                     `;
                 break;
