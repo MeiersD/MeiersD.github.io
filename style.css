@@ -24,7 +24,7 @@
 }
 
 .input-container.hidden {
-    opacity: 0;
+    opacity: 1;
 }
 
 input[type="text"] {
@@ -70,20 +70,27 @@ body {
 .scene-container {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
     opacity: 0;
     display: block;
     transition: opacity 3s ease;
     z-index: 1;
     pointer-events: none;
-  }
+}
 
 .scene-container.active {
     opacity: 1;
     pointer-events: auto;
 } 
+
+.animation-menu {
+    left:0;
+    width:20%;
+}
+
+.animation-menu.active {
+
+}
 
 .loading-bar {
     position: absolute;

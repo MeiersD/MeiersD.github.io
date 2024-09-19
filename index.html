@@ -3,9 +3,11 @@
         <div class="header">
             <p>Meiers Dixon</p>
         </div>
-        <div id="input-container" class="input-container">
-            <label for="name">Enter a PDB code:</label>
-            <input type="text" id="pdb-input" name="name" placeholder="e.g. 1aki">
+        <div class="animation-menu" id="animation-menu">
+            <div id="input-container" class="input-container">
+                <label for="name">Enter a PDB code:</label>
+                <input type="text" id="pdb-input" name="name" placeholder="e.g. 1aki">
+            </div>
         </div>
         <div id="notification" class="notification"></div>
         <div id="scene-container" class="scene-container"></div>
@@ -19,13 +21,17 @@
         
         <script type="module" src="scripts/templates/three.module.js"></script>
         <script type="module" src="scripts/templates/OrbitControls.js"></script>
+
+        <script type="module" src="scripts/3d_rendering/utils/animation_utils.js"></script>
+
+        <script type="module" src="scripts/3d_rendering/utils/color_utils.js"></script>
         <script type="module" src="scripts/3d_rendering/loading_bar.js"></script>
         <script type="module" src="scripts/3d_rendering/atom.js"></script>
         <script type="module" src="scripts/3d_rendering/parse_pdb.js"></script>
         <script type="module" src="scripts/3d_rendering/3d.js"></script>
-        <script type="module" src="scripts/home_logic.js"></script>
-        <script type="module" src="scripts/pdb_fetcher.js"></script>
-        <script type="module" src="scripts/button_manager.js"></script>
-        <script type="module" src="scripts/home_script.js"></script>
+        <script type="module" src="scripts/front_end/button_manager.js"></script>
+        <script type="module" src="scripts/front_end/home_logic.js"></script>
+        <script type="module" src="scripts/front_end/home_script.js"></script>
+        <script type="module" src="scripts/front_end/pdb_fetcher.js"></script>
     </body>
 </html>

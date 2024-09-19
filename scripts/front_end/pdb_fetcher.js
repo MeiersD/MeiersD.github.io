@@ -1,4 +1,4 @@
-import { test3d } from './3d_rendering/3d.js';
+import { test3d } from '../3d_rendering/3d.js';
 
 class PDBfetcher {
     constructor(home){
@@ -27,7 +27,12 @@ class PDBfetcher {
                 }
 
                 const temp = new test3d(this.pdb_contents);
-                temp.mainSequence();
+                temp.mainSequence().then(() => {
+                    this.not_already_fetching = true; 
+                }).then(() => {
+                    console.log("fetching re-enabled");
+                });
+                
                                 //start loading the model
                 //continue with more code that shouldn't be run if there was an error previously
             }

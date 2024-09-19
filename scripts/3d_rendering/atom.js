@@ -9,6 +9,8 @@ class Atom {
         this.x_coord = x_coord;
         this.y_coord = y_coord;
         this.z_coord = z_coord;
+
+        this.color = 0xffffff;
         return;
     }
 }
