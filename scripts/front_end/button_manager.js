@@ -51,7 +51,7 @@ class ButtonManager {
         this.residue_button.title = this.color_residue_title;
 
         this.on_rotation_button_title = 
-            "Automatically rotate the macromolecule along one of these axis"
+            "Automatically rotate the macromolecule along one of these axes"
         this.on_rotation_button.title = this.on_rotation_button_title;
 
         this.off_rotation_button_title = 
@@ -122,7 +122,7 @@ class ButtonManager {
                 this.on_rotation_menu = document.createElement('on-rotation-menu');
                 this.animation_menu_rotation.appendChild(this.on_rotation_menu);
                 this.on_rotation_menu.innerHTML = `
-                    <div title="this.on-rotation_button_title">
+                    <div title="${this.on_rotation_button_title}">
                         <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="90"></div>
                         <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="0"></div>
                         <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
