@@ -12,7 +12,7 @@ const scene_container = document.getElementById("scene-container");
 const render_width = scene_container.offsetWidth;
 const render_height = scene_container.offsetHeight;
 const renderer = new THREE.WebGLRenderer();
-const camera = new THREE.PerspectiveCamera(50, render_width / render_height, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(20, render_width / render_height, 0.1, 1000);
 
 
 class test3d {

@@ -7,12 +7,55 @@
             <div id="animation-menu-code" class="animation-menu-code"></div>
             <div id="animation-menu-description" class="animation-menu-description"></div>
             <div id="animation-menu-settings-container" class="animation-menu-settings-container">
-                <div id="animation-menu-settings" class="animation-menu-settings">Settings</div>
-
+                <div id="animation-menu-settings" class="animation-menu-settings">
+                    <span>Settings</span>
+                    <div id="animation-menu-color-container" class="animation-menu-color-container">
+                        <span>Color</span>
+                        <div id="animation-menu-color" class="animation-menu-color">
+                            <label class="color-button">
+                                <input type="radio" name="color-type" value="Uniform">
+                                <span>Uniform</span>
+                            </label>
+                            <label class="color-button">
+                                <input type="radio" name="color-type" value="Atomic">
+                                <span>Atomic</span>
+                            </label>
+                            <label class="color-button">
+                                <input type="radio" name="color-type" value="Residue">
+                                <span>Residue</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="animation-menu-shaders-container" class="animation-menu-shaders-container">
+                        <span>Shaders</span>
+                        <div id="animation-menu-shaders" class="animation-menu-shaders">
+                            <label class="color-button">
+                                <input type="radio" name="shaders-type" value="On">
+                                <span>On</span>
+                            </label>
+                            <label class="color-button">
+                                <input type="radio" name="shaders-type" value="Off">
+                                <span>Off</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="animation-menu-rotation-container" class="animation-menu-rotation-container">
+                        <span>Rotation</span>
+                        <div id="animation-menu-rotation" class="animation-menu-rotation">
+                            <label class="color-button">
+                                <input type="radio" name="rotation-type" value="On">
+                                <span>On</span>
+                            </label>
+                            <label class="color-button">
+                                <input type="radio" name="rotation-type" value="Off">
+                                <span>Off</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
             <div id="input-container" class="input-container">
-                <label for="name">Enter a PDB code:</label>
+                <label for="name">Enter new a PDB code:</label>
                 <input type="text" id="pdb-input" name="name" placeholder="e.g. 1aki">
             </div>
         </div>
@@ -41,7 +84,6 @@
         <script type="module" src="scripts/front_end/home_logic.js"></script>
         <script type="module" src="scripts/front_end/home_script.js"></script>
         <script type="module" src="scripts/front_end/pdb_fetcher.js"></script>
-        <script type="module" src="scripts/front_end/load_page.js"></script>
 
     </body>
 </html>
