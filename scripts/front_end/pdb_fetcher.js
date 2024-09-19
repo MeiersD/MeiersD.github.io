@@ -72,9 +72,7 @@ class PDBfetcher {
                 "<br><br><span style='font-size: larger;'>Macromolecule type:</span><br>" 
                 + this.keyword;
         }).then(() => {
-            console.log("");
         }).then(() => {
-            console.log("");
         });
         
                         //start loading the model

@@ -26,6 +26,13 @@ button_manager.initiate_button_event_listeners();
 * Automatically loads the DNA upon page load *
 *********************************************/
 document.addEventListener("DOMContentLoaded", function() {
-    pdb_fetcher.send_message_to_build_scene("1fky")
-  });
+    pdb_fetcher.send_message_to_build_scene("1fky");
+    //initialize_button_settings();
+});
 
+// async initialize_button_settings(){
+//   pdb_fetcher.mainSequence().then(() => {
+//     this.not_already_fetching = true; 
+//   }).then(() => {
+//   });
+// };
