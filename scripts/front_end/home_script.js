@@ -30,12 +30,4 @@ document.addEventListener("DOMContentLoaded", function() {
     button_manager.radio_switch('on-rotation');
     button_manager.radio_switch('off-trace');
     pdb_fetcher.send_message_to_build_scene("1fky");
-    //initialize_button_settings();
 });
-
-// async initialize_button_settings(){
-//   pdb_fetcher.mainSequence().then(() => {
-//     this.not_already_fetching = true; 
-//   }).then(() => {
-//   });
-// };

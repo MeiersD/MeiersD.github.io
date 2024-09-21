@@ -1,5 +1,9 @@
 import * as THREE from '../../templates/three.module.js';
 
+var bond_array;
+var atom_array;
+
+
 var rotating_speed_x = 0;
 var rotating_speed_y = 0;
 var rotating_speed_z = 0;
@@ -31,7 +35,7 @@ function build_sticks_model(atom_array){
     const bounding_box = new THREE.Box3(); // To calculate the bounding box of the protein
     const len = atom_array.length;
     const bond_length = 2; // in angstroms ig?
-    const scanning_length = 20; //this is the number of lines above the index line that will be scanned for bonds;
+    const scanning_length = 40; //this is the number of lines above the index line that will be scanned for bonds;
     for (let index = 0; index < len; index++){
         //if(index === 1)console.log("index is: ", index);
         for (let j = 0; j < scanning_length; j++){
@@ -41,11 +45,15 @@ function build_sticks_model(atom_array){
                         atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord,
                         atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord
                     );
-                    if (dist < bond_length){
+                    if (dist < bond_length && 
+                        index !== target_atom_index &&
+                        atom_array[index].atom_type !== "H" &&
+                        atom_array[target_atom_index].atom_type !== "H"){
                         const bond = build_bond(
                             new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
                             new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord)
                         );
+                        // console.log("now bonding atoms: ", index, " and ", target_atom_index);
                         protein.add(bond);
                         bounding_box.expandByObject(bond);
                     }
