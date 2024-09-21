@@ -61,9 +61,11 @@ class test3d {
         const atomistic_bounding_box = animation_utils.get_atomistic_bounding_box();
         const sticks_bounding_box = animation_utils.get_sticks_bounding_box();
         
-        const center = atomistic_bounding_box.getCenter(new THREE.Vector3());
-        scene.add(atomistic_protein);
+        // const center = atomistic_bounding_box.getCenter(new THREE.Vector3());
+        // scene.add(atomistic_protein);
     
+        const center = sticks_bounding_box.getCenter(new THREE.Vector3());
+        scene.add(sticks_protein);
 
         const spotlight = new THREE.SpotLight(light_color, spotlight_power);
         spotlight.position.copy(camera.position);
@@ -81,9 +83,14 @@ class test3d {
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
-            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
-            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
+            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
+            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
+            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
+
+            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
+            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
+            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
+
 
             spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
             renderer.render(scene, camera);

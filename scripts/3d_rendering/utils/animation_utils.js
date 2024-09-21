@@ -24,12 +24,51 @@ function build_atomistic_model(atom_array){
     }
     atomistic_bounding_box = bounding_box;
     return protein;
-
 }
 
 function build_sticks_model(atom_array){
-
+    const protein = new THREE.Group();
+    const bounding_box = new THREE.Box3(); // To calculate the bounding box of the protein
+    const len = atom_array.length;
+    const bond_length = 2; // in angstroms ig?
+    const scanning_length = 20; //this is the number of lines above the index line that will be scanned for bonds;
+    for (let index = 0; index < len; index++){
+        //if(index === 1)console.log("index is: ", index);
+        for (let j = 0; j < scanning_length; j++){
+            const target_atom_index = j + index;
+                if (target_atom_index > 0 && target_atom_index < len){
+                    const dist = distance3D(
+                        atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord,
+                        atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord
+                    );
+                    if (dist < bond_length){
+                        const bond = build_bond(
+                            new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord)
+                        );
+                        protein.add(bond);
+                        bounding_box.expandByObject(bond);
+                    }
+                }
+        }
+    }
+    sticks_bounding_box = bounding_box;
+    return protein;
 }
+
+function build_bond(pointX, pointY){
+    // edge from X to Y
+    var direction = new THREE.Vector3().subVectors( pointY, pointX );
+    // cylinder: radiusAtTop, radiusAtBottom, height, radiusSegments, heightSegments
+    var edgeGeometry = new THREE.CylinderGeometry( 0.2, 0.2, direction.length(), 6, 4 ); // Adjusted radius for bond size
+    var edge = new THREE.Mesh( edgeGeometry, new THREE.MeshPhongMaterial( { color: 0x0000ff } ) );
+    // Set the position at the midpoint
+    edge.position.copy(pointX.clone().add(direction.multiplyScalar(0.5)));
+    // Align the cylinder along the bond direction
+    edge.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+    return edge;
+}
+
 
 function get_atomistic_bounding_box(){
     return atomistic_bounding_box;
@@ -63,6 +102,14 @@ function add_resize_listener(renderer, camera){
         camera.aspect = width/height;
         camera.updateProjectionMatrix();
     });
+}
+
+function distance3D(x1, y1, z1, x2, y2, z2) {
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const dz = z2 - z1;
+    
+    return Math.sqrt(dx * dx + dy * dy + dz * dz);
 }
 
 const animation_utils = {
