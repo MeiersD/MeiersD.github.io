@@ -50,7 +50,6 @@ class parsePDB {
     // }
 
     get_num_atoms() {
-        // Split the file into lines
         const lines = this.file.split('\n');
     
         // Filter lines that start with "ATOM" or "HETATM" but exclude lines with 'HOH' in columns 17–20

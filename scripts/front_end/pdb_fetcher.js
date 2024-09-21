@@ -58,8 +58,8 @@ class PDBfetcher {
             return;
         }
 
-        const temp = new test3d(this.pdb_contents);
-        temp.mainSequence().then(() => {
+        this.temp = new test3d(this.pdb_contents);
+        this.temp.mainSequence().then(() => {
             this.not_already_fetching = true; 
         }).then(() => {
             console.log("fetching re-enabled");
@@ -77,6 +77,11 @@ class PDBfetcher {
         
                         //start loading the model
         //continue with more code that shouldn't be run if there was an error previously
+    }
+
+    change_rotation_speed(x_speed, y_speed, z_speed){
+        this.temp.change_rotation_speed(x_speed, y_speed, z_speed)
+        console.log("yspeed is", y_speed)
     }
 
 }

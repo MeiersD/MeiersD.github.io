@@ -14,12 +14,15 @@ const render_height = scene_container.offsetHeight;
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(15, render_width / render_height, 0.1, 1000);
 const light_color = 0xFFFFFF;
+var rotation_speed_x = 0.000;
+var rotation_speed_y = 0.001;
+var rotation_speed_z = 0.000;
+
 var spotlight_power = 2.0;
 
 
 class test3d {
     constructor(file){
-        //this.animation_menu = document.getElementById("animation-menu");
         this.parse_pdb = new parsePDB(file, this);
         this.atom_array = [];
         
@@ -85,7 +88,10 @@ class test3d {
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), 0.001);
+            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
+            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
+            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
+
             spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
             renderer.render(scene, camera);
         }
@@ -97,6 +103,18 @@ class test3d {
             while(scene.children.length > 0){ 
                 scene.remove(scene.children[0]); 
             }
+        }
+    }
+
+    change_rotation_speed(x_speed, y_speed, z_speed){
+        if (x_speed !== 0){
+            rotation_speed_x = x_speed;
+        }
+        if (y_speed !== 0){
+            rotation_speed_y = y_speed;
+        }
+        if (z_speed !== 0){
+            rotation_speed_z = z_speed;
         }
     }
 }

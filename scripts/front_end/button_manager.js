@@ -70,64 +70,19 @@ class ButtonManager {
     radio_switch(value){
         switch(value){
             case "uniform-color":
-                if(this.atomic_color_menu) this.atomic_color_menu.remove();
-                if(this.residue_color_menu) this.residue_color_menu.remove();
-                this.uniform_color_menu = document.createElement('uniform-color-menu');
-                this.animation_menu_color.appendChild(this.uniform_color_menu);
-                this.uniform_color_menu.innerHTML = `
+                this.case1();
+                break;
 
-                    <div title="${this.color_uniform_title.replace(/\n/g, ' &#10;')}">
-                        <label for="uniform-color-select">Select color:</label>
-                        <select id="uniform-color-select">
-                            <option value="white">White</option>
-                            <option value="cyan">Cyan</option>
-                            <option value="magenta">Magenta</option>
-                            <option value="gold">Gold</option>
-                        </select>
-                    </div>
-                    `;
-                break;
             case "atomic-color":
-                if(this.uniform_color_menu) this.uniform_color_menu.remove();
-                if(this.residue_color_menu) this.residue_color_menu.remove();
-                this.atomic_color_menu = document.createElement('atomic-color-menu');
-                this.animation_menu_color.appendChild(this.atomic_color_menu);
-                this.atomic_color_menu.innerHTML = `
-                    <div title="${this.color_atomic_title.replace(/\n/g, ' &#10;')}">
-                        <label for="atomic-color-select">Select atomic color scheme:</label>
-                        <select id="atomic-color-select">
-                            <option value="classic">Classic</option>
-                            <option value="pastel">Pastel</option>
-                        </select>
-                    </div>
-                    `;
+                this.case2();
                 break;
+
             case "residue-color":
-                if(this.atomic_color_menu) this.atomic_color_menu.remove();
-                if(this.uniform_color_menu) this.uniform_color_menu.remove();
-                this.residue_color_menu = document.createElement('residue-color-menu');
-                this.animation_menu_color.appendChild(this.residue_color_menu);
-                this.residue_color_menu.innerHTML = `
-                    <div title="${this.color_residue_title.replace(/\n/g, ' &#10;')}">
-                        <label for="residue-color-select">Select residue color scheme:</label>
-                        <select id="residue-color-select">
-                            <option value="magma">Magma</option>
-                            <option value="plasma">Plasma</option>
-                            <option value="rainbow">Rainbow</option>
-                        </select>
-                    </div>
-                    `;
+                this.case3();
                 break;
+
             case "on-rotation":
-                this.on_rotation_menu = document.createElement('on-rotation-menu');
-                this.animation_menu_rotation.appendChild(this.on_rotation_menu);
-                this.on_rotation_menu.innerHTML = `
-                    <div title="${this.on_rotation_button_title}">
-                        <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="90"></div>
-                        <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="0"></div>
-                        <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
-                    </div>
-                    `;
+                this.case4();
                 break;
             case "off-rotation":
                 if (this.on_rotation_menu) this.on_rotation_menu.remove();
@@ -163,6 +118,88 @@ class ButtonManager {
             radio.addEventListener('change', (event) => {
                 this.radio_switch(event.target.value);
             });
+        });
+    }
+
+    case1(){
+        if(this.atomic_color_menu) this.atomic_color_menu.remove();
+        if(this.residue_color_menu) this.residue_color_menu.remove();
+        this.uniform_color_menu = document.createElement('uniform-color-menu');
+        this.animation_menu_color.appendChild(this.uniform_color_menu);
+        this.uniform_color_menu.innerHTML = `
+
+            <div title="${this.color_uniform_title.replace(/\n/g, ' &#10;')}">
+                <label for="uniform-color-select">Select color:</label>
+                <select id="uniform-color-select">
+                    <option value="white">White</option>
+                    <option value="cyan">Cyan</option>
+                    <option value="magenta">Magenta</option>
+                    <option value="gold">Gold</option>
+                </select>
+            </div>
+            `;
+        this.uniform_color_select = document.getElementById('uniform-color-select');
+    }
+
+    case2(){
+        if(this.uniform_color_menu) this.uniform_color_menu.remove();
+        if(this.residue_color_menu) this.residue_color_menu.remove();
+        this.atomic_color_menu = document.createElement('atomic-color-menu');
+        this.animation_menu_color.appendChild(this.atomic_color_menu);
+        this.atomic_color_menu.innerHTML = `
+            <div title="${this.color_atomic_title.replace(/\n/g, ' &#10;')}">
+                <label for="atomic-color-select">Select atomic color scheme:</label>
+                <select id="atomic-color-select">
+                    <option value="classic">Classic</option>
+                    <option value="pastel">Pastel</option>
+                </select>
+            </div>
+        `;
+        this.atomic_color_select = document.getElementById('atomic-color-select');
+    }
+
+    case3(){
+        if(this.atomic_color_menu) this.atomic_color_menu.remove();
+        if(this.uniform_color_menu) this.uniform_color_menu.remove();
+        this.residue_color_menu = document.createElement('residue-color-menu');
+        this.animation_menu_color.appendChild(this.residue_color_menu);
+        this.residue_color_menu.innerHTML = `
+            <div title="${this.color_residue_title.replace(/\n/g, ' &#10;')}">
+                <label for="residue-color-select">Select residue color scheme:</label>
+                <select id="residue-color-select">
+                    <option value="magma">Magma</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="rainbow">Rainbow</option>
+                </select>
+            </div>
+        `;
+        this.residue_color_select = document.getElementById('residue-color-select');
+    }
+
+    case4(){
+        this.on_rotation_menu = document.createElement('on-rotation-menu');
+        this.animation_menu_rotation.appendChild(this.on_rotation_menu);
+        this.on_rotation_menu.innerHTML = `
+            <div title="${this.on_rotation_button_title}">
+                <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="0"></div>
+                <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="158"></div>
+                <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
+            </div>
+        `;
+        const slider_x = document.getElementById('rotation-x');
+        const slider_y = document.getElementById('rotation-y');
+        const slider_z = document.getElementById('rotation-z');
+        slider_x.addEventListener("input", (event) => {
+            console.log((event.target.value)/3600);
+            this.pdb_fetcher.change_rotation_speed((event.target.value**2)/2.5e7, 0, 0);
+        });
+
+        slider_y.addEventListener("input", (event) => {
+            this.pdb_fetcher.change_rotation_speed(0, (event.target.value**2)/2.5e7, 0);
+        });
+
+        slider_z.addEventListener("input", (event) => {
+            this.pdb_fetcher.change_rotation_speed(0, 0, (event.target.value**2)/2.5e7);
         });
     }
 }

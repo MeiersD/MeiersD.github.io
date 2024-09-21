@@ -32,7 +32,7 @@ function add_resize_listener(renderer, camera){
 
 const animation_utils = {
     rotate_around_point: rotate_around_point,
-    add_resize_listener: add_resize_listener
+    add_resize_listener: add_resize_listener,
 };
 
 export { animation_utils };
