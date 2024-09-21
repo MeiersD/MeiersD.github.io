@@ -18,7 +18,7 @@ class ButtonManager {
         this.on_trace_button = document.getElementById('on-trace-button');
         this.off_trace_button = document.getElementById('off-trace-button');
 
-        this.initial_speed = 158;
+        this.initial_speed = 250;
 
         this.color_uniform_title =
             "White:\tall atoms colored white\n"

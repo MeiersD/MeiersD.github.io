@@ -12,10 +12,10 @@ const scene_container = document.getElementById("scene-container");
 const render_width = scene_container.offsetWidth;
 const render_height = scene_container.offsetHeight;
 const renderer = new THREE.WebGLRenderer();
-const camera = new THREE.PerspectiveCamera(15, render_width / render_height, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(13, render_width / render_height, 0.1, 1000);
 const light_color = 0xFFFFFF;
 var rotation_speed_x = 0.000;
-var rotation_speed_y = 0.001;
+var rotation_speed_y = 0.0025;
 var rotation_speed_z = 0.000;
 
 var spotlight_power = 2.0;
