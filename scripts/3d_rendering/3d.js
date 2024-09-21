@@ -89,6 +89,7 @@ class test3d {
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
+            console.log("rotation speed y is: ", rotation_speed_y);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
             animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
 
@@ -107,13 +108,13 @@ class test3d {
     }
 
     change_rotation_speed(x_speed, y_speed, z_speed){
-        if (x_speed !== 0){
+        if (x_speed !== -1){
             rotation_speed_x = x_speed;
         }
-        if (y_speed !== 0){
+        if (y_speed !== -1){
             rotation_speed_y = y_speed;
         }
-        if (z_speed !== 0){
+        if (z_speed !== -1){
             rotation_speed_z = z_speed;
         }
     }

@@ -18,6 +18,8 @@ class ButtonManager {
         this.on_trace_button = document.getElementById('on-trace-button');
         this.off_trace_button = document.getElementById('off-trace-button');
 
+        this.initial_speed = 158;
+
         this.color_uniform_title =
             "White:\tall atoms colored white\n"
         +   "Cyan: \tall atoms colored cyan\n"
@@ -85,7 +87,7 @@ class ButtonManager {
                 this.case4();
                 break;
             case "off-rotation":
-                if (this.on_rotation_menu) this.on_rotation_menu.remove();
+                this.case5();
                 break;
             case "on-trace":
                 //call some function to connect all atoms, add it as a new object, then remove the original protein from the scene.
@@ -103,6 +105,7 @@ class ButtonManager {
     // }
 
     initiate_button_event_listeners(){
+        
         this.pdb_fetcher.check_pdb_input(this.pdb_input);
         this.color_radios.forEach(radio => {
             radio.addEventListener('change', (event) => {
@@ -182,7 +185,7 @@ class ButtonManager {
         this.on_rotation_menu.innerHTML = `
             <div title="${this.on_rotation_button_title}">
                 <div>Rotate along X-axis: <input type="range" id="rotation-x" min="0" max="360" value="0"></div>
-                <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="158"></div>
+                <div>Rotate along Y-axis: <input type="range" id="rotation-y" min="0" max="360" value="${this.initial_speed}"></div>
                 <div>Rotate along Z-axis: <input type="range" id="rotation-z" min="0" max="360" value="0"></div>
             </div>
         `;
@@ -190,17 +193,25 @@ class ButtonManager {
         const slider_y = document.getElementById('rotation-y');
         const slider_z = document.getElementById('rotation-z');
         slider_x.addEventListener("input", (event) => {
-            console.log((event.target.value)/3600);
-            this.pdb_fetcher.change_rotation_speed((event.target.value**2)/2.5e7, 0, 0);
+            this.pdb_fetcher.change_rotation_speed((event.target.value**2)/2.5e7, -1, -1);
         });
 
         slider_y.addEventListener("input", (event) => {
-            this.pdb_fetcher.change_rotation_speed(0, (event.target.value**2)/2.5e7, 0);
+            this.pdb_fetcher.change_rotation_speed(-1, (event.target.value**2)/2.5e7, -1);
         });
 
         slider_z.addEventListener("input", (event) => {
-            this.pdb_fetcher.change_rotation_speed(0, 0, (event.target.value**2)/2.5e7);
+            this.pdb_fetcher.change_rotation_speed(-1, -1, (event.target.value**2)/2.5e7);
         });
+    }
+
+    case5(){
+        this.pdb_fetcher.change_rotation_speed(0, 0, 0);
+        document.getElementById("rotation-x").value = 0;
+        document.getElementById("rotation-y").value = 0;
+        document.getElementById("rotation-z").value = 0;
+        this.initial_speed = 0; //makes the y-slider go to zero
+        if (this.on_rotation_menu) this.on_rotation_menu.remove();
     }
 }
 

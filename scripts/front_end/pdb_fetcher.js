@@ -81,7 +81,6 @@ class PDBfetcher {
 
     change_rotation_speed(x_speed, y_speed, z_speed){
         this.temp.change_rotation_speed(x_speed, y_speed, z_speed)
-        console.log("yspeed is", y_speed)
     }
 
 }
