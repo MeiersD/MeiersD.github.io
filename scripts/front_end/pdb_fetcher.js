@@ -80,7 +80,13 @@ class PDBfetcher {
     }
 
     change_rotation_speed(x_speed, y_speed, z_speed){
-        this.temp.change_rotation_speed(x_speed, y_speed, z_speed)
+        this.temp.change_rotation_speed(x_speed, y_speed, z_speed);
+    }
+
+    set_trace_status(value){
+        if(this.temp){
+            this.temp.set_trace_status(value);
+        }
     }
 
 }

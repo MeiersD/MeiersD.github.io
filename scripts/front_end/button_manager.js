@@ -90,10 +90,10 @@ class ButtonManager {
                 this.case5();
                 break;
             case "on-trace":
-                //call some function to connect all atoms, add it as a new object, then remove the original protein from the scene.
+                this.pdb_fetcher.set_trace_status(true);
                 break;
             case "off-trace":
-                //call some function to remove all connections from the scene, then remake all atoms
+                this.pdb_fetcher.set_trace_status(false);
                 break;
         }
         // this.initiate_radio_event_listeners(value);

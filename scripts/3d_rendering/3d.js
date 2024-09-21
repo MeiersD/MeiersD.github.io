@@ -17,7 +17,7 @@ const light_color = 0xFFFFFF;
 var rotation_speed_x = 0.000;
 var rotation_speed_y = 0.0025;
 var rotation_speed_z = 0.000;
-
+var trace_status = true; //determines if the model is either lines or sticks, initialized to true
 var spotlight_power = 2.0;
 
 
@@ -60,6 +60,7 @@ class test3d {
 
         const atomistic_bounding_box = animation_utils.get_atomistic_bounding_box();
         const sticks_bounding_box = animation_utils.get_sticks_bounding_box();
+        var current_protein = sticks_protein;
         
         // const center = atomistic_bounding_box.getCenter(new THREE.Vector3());
         // scene.add(atomistic_protein);
@@ -80,21 +81,39 @@ class test3d {
 
         camera.lookAt(center)
         controls.maxDistance = 750;
+
+        const update_model_display = () => {
+            
+            if (trace_status) {
+                if (current_protein !== sticks_protein) {
+                    scene.remove(current_protein);
+                    scene.add(sticks_protein);
+                    current_protein = sticks_protein;
+                }
+            } else {
+                if (current_protein !== atomistic_protein) {
+                    scene.remove(current_protein);
+                    scene.add(atomistic_protein);
+                    current_protein = atomistic_protein;
+                }
+            }
+        };
     
-        const animate = () => { // Animation loop
-            requestAnimationFrame(animate);
-            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
-            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
-            // animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
-
-            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
-            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
-            animation_utils.rotate_around_point(sticks_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
-
-
+        const animate = () => {
+            update_model_display();
+    
+            const rotation_vector_x = new THREE.Vector3(3, 3, 0);
+            const rotation_vector_y = new THREE.Vector3(0, 3, 0);
+            const rotation_vector_z = new THREE.Vector3(0, 0, 3);
+    
+            animation_utils.rotate_around_point(current_protein, center, rotation_vector_x, rotation_speed_x);
+            animation_utils.rotate_around_point(current_protein, center, rotation_vector_y, rotation_speed_y);
+            animation_utils.rotate_around_point(current_protein, center, rotation_vector_z, rotation_speed_z);
+    
             spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
             renderer.render(scene, camera);
-        }
+            requestAnimationFrame(animate);
+        };
         animate();
     }    
 
@@ -116,6 +135,10 @@ class test3d {
         if (z_speed !== -1){
             rotation_speed_z = z_speed;
         }
+    }
+
+    set_trace_status(value){
+        trace_status = value;       
     }
 }
 
