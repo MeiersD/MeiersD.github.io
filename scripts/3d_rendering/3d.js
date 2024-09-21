@@ -54,22 +54,15 @@ class test3d {
     }
 
     set_up_scene(){
-        const protein = new THREE.Group();
-        const boundingBox = new THREE.Box3(); // To calculate the bounding box of the protein
-    
-        for (let i = 0; i < this.atom_array.length; i++){
-            var atom_color = this.atom_array[i].color;
-            var geometry = new THREE.SphereGeometry(0.5, 15, 15);
-            var material = new THREE.MeshPhongMaterial({ color: atom_color });
-            var atom = new THREE.Mesh(geometry, material);
-            atom.position.set(this.atom_array[i].x_coord, this.atom_array[i].y_coord, this.atom_array[i].z_coord);
-            protein.add(atom);
-            boundingBox.expandByObject(atom); // Expand the bounding box to include each atom
-            //loading_bar.update_loading_bar(); // UPDATE LOADING BAR
-        }
-    
-        const center = boundingBox.getCenter(new THREE.Vector3());
-        scene.add(protein);
+        
+        const atomistic_protein = animation_utils.build_atomistic_model(this.atom_array); //need to pass it the animation_utils object
+        const sticks_protein = animation_utils.build_sticks_model(this.atom_array);
+
+        const atomistic_bounding_box = animation_utils.get_atomistic_bounding_box();
+        const sticks_bounding_box = animation_utils.get_sticks_bounding_box();
+        
+        const center = atomistic_bounding_box.getCenter(new THREE.Vector3());
+        scene.add(atomistic_protein);
     
 
         const spotlight = new THREE.SpotLight(light_color, spotlight_power);
@@ -88,10 +81,9 @@ class test3d {
     
         const animate = () => { // Animation loop
             requestAnimationFrame(animate);
-            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
-            console.log("rotation speed y is: ", rotation_speed_y);
-            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
-            animation_utils.rotate_around_point(protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
+            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(3, 3, 0), rotation_speed_x);
+            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 3, 0), rotation_speed_y);
+            animation_utils.rotate_around_point(atomistic_protein, center, new THREE.Vector3(0, 0, 3), rotation_speed_z);
 
             spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
             renderer.render(scene, camera);
