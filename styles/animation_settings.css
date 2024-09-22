@@ -1,26 +1,27 @@
 .animation-menu {
     position: fixed;
+    top:60px;
     left:0;
-    bottom: 0;
     width:20%;
-    height: 93%;
     color: white;
     background-color: #242424;
     padding: 0;
+    overflow-y: auto;
+    height: calc(100vh - 60px); /*height takes up the entire viewport minus header */
+}
+.animation-menu-code{
+    padding-top: 30px;
 }
 
 .animation-menu-code, .animation-menu-description, .animation-menu-settings {
-    margin-top: 0px;
     font-size:normal;
-    padding: 20px;
-    position: absolute;
-}
-
-.animation-menu-description {
-    top: 10px;
+    position: relative; /* Change this to relative to ensure it flows inside the container */
+    
+    padding-left: 10px;
 }
 
 .animation-menu-settings-container {
+    padding-top: 30px;
     display: flex;
     flex-direction: column; /* Stack items vertically */
     transition: all 0.3s ease; /* Smooth transition when size changes */
@@ -45,7 +46,7 @@
 }
 
 .animation-menu-settings {
-    top: 120px;
+    /* top: 120px; */
     font-size: larger;
 }
 
@@ -57,7 +58,6 @@
     opacity: 1;
     transition: 1s;
     z-index: 10;
-    bottom:10px;
     left: 10px;
     padding: 10px;
     border: 2px groove white;
