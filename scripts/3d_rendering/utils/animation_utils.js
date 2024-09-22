@@ -18,14 +18,16 @@ function build_atomistic_model(atom_array){
     const bounding_box = new THREE.Box3(); // To calculate the bounding box of the protein
 
     for (let i = 0; i < atom_array.length; i++){
-        var atom_color = atom_array[i].color;
-        console.log("color is: ", atom_color);
-        var geometry = new THREE.SphereGeometry(0.5, 15, 15);
-        var material = new THREE.MeshPhongMaterial({ color: atom_color });
-        var atom = new THREE.Mesh(geometry, material);
-        atom.position.set(atom_array[i].x_coord, atom_array[i].y_coord, atom_array[i].z_coord);
-        protein.add(atom);
-        bounding_box.expandByObject(atom); // Expand the bounding box to include each atom
+        if (atom_array[i].atom_type !== "H"){
+            var atom_color = atom_array[i].color;
+            console.log("color is: ", atom_color);
+            var geometry = new THREE.SphereGeometry(0.5, 15, 15);
+            var material = new THREE.MeshPhongMaterial({ color: atom_color });
+            var atom = new THREE.Mesh(geometry, material);
+            atom.position.set(atom_array[i].x_coord, atom_array[i].y_coord, atom_array[i].z_coord);
+            protein.add(atom);
+            bounding_box.expandByObject(atom); // Expand the bounding box to include each atom
+        }
     }
     atomistic_bounding_box = bounding_box;
     return protein;

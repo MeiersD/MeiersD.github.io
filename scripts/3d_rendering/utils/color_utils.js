@@ -15,13 +15,100 @@ function interpret_colors(value, atom_array){
         case "pastel":
             return set_atomistic_pastel(atom_array);
         case "Magma":
-            break;
+            return set_residue_magma(atom_array);
         case "Plasma":
-            break;
+            return set_residue_plasma(atom_array);
         case "Rainbow":
-            break;
+            return set_residue_rainbow(atom_array);
 
     }
+}
+
+function set_residue_magma(atom_array){
+    for (let i = 0; i < atom_array.length; i++){
+        switch (atom_array[i].residue_type){
+            case "DA":
+                atom_array[i].color = 0x373737;
+                break;
+            case "DT":
+                atom_array[i].color = 0x1e34c9;
+                break;
+            case "DC":
+                atom_array[i].color = 0xffffff;
+                break;
+            case "DG":
+                atom_array[i].color = 0xdc1111;
+                break;
+            case "S":
+                atom_array[i].color = 0xf4e110;
+                break;
+            case "P":
+                atom_array[i].color = 0xf47c10;
+                break;
+            default:
+                atom_array[i].color = 0xd010f4;
+                break;
+        }
+    }
+    return atom_array;
+}
+
+function set_residue_plasma(atom_array){
+    for (let i = 0; i < atom_array.length; i++){
+        switch (atom_array[i].residue_type){
+            case "C":
+                atom_array[i].color = 0x373737;
+                break;
+            case "N":
+                atom_array[i].color = 0x1e34c9;
+                break;
+            case "H":
+                atom_array[i].color = 0xffffff;
+                break;
+            case "O":
+                atom_array[i].color = 0xdc1111;
+                break;
+            case "S":
+                atom_array[i].color = 0xf4e110;
+                break;
+            case "P":
+                atom_array[i].color = 0xf47c10;
+                break;
+            default:
+                atom_array[i].color = 0xd010f4;
+                break;
+        }
+    }
+    return atom_array;
+}
+
+function set_residue_rainbow(atom_array){
+    for (let i = 0; i < atom_array.length; i++){
+        switch (atom_array[i].residue_type){
+            case "C":
+                atom_array[i].color = 0x373737;
+                break;
+            case "N":
+                atom_array[i].color = 0x1e34c9;
+                break;
+            case "H":
+                atom_array[i].color = 0xffffff;
+                break;
+            case "O":
+                atom_array[i].color = 0xdc1111;
+                break;
+            case "S":
+                atom_array[i].color = 0xf4e110;
+                break;
+            case "P":
+                atom_array[i].color = 0xf47c10;
+                break;
+            default:
+                atom_array[i].color = 0xd010f4;
+                break;
+        }
+    }
+    return atom_array;
 }
 
 function set_atomistic_classic(atom_array){

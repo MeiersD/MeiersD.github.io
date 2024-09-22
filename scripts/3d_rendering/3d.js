@@ -172,6 +172,7 @@ class test3d {
 
     set_trace_status(value){
         trace_status = value;
+        this.force_rebuild = true;
     }
 
     change_coloring(value){
