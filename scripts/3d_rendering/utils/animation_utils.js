@@ -11,8 +11,6 @@ var rotating_speed_z = 0;
 var atomistic_bounding_box;
 var sticks_bounding_box;
 
-//var color_pattern = 
-
 function build_atomistic_model(atom_array){
     const protein = new THREE.Group();
     const bounding_box = new THREE.Box3(); // To calculate the bounding box of the protein
@@ -20,7 +18,6 @@ function build_atomistic_model(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         if (atom_array[i].atom_type !== "H"){
             var atom_color = atom_array[i].color;
-            console.log("color is: ", atom_color);
             var geometry = new THREE.SphereGeometry(0.5, 15, 15);
             var material = new THREE.MeshPhongMaterial({ color: atom_color });
             var atom = new THREE.Mesh(geometry, material);
@@ -40,7 +37,6 @@ function build_sticks_model(atom_array){
     const bond_length = 2; // in angstroms ig?
     const scanning_length = 40; //this is the number of lines above the index line that will be scanned for bonds;
     for (let index = 0; index < len; index++){
-        //if(index === 1)console.log("index is: ", index);
         for (let j = 0; j < scanning_length; j++){
             const target_atom_index = j + index;
                 if (target_atom_index > 0 && target_atom_index < len){
@@ -62,7 +58,6 @@ function build_sticks_model(atom_array){
                             new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
                             atom_array[target_atom_index].color
                         )
-                        // console.log("now bonding atoms: ", index, " and ", target_atom_index);
                         protein.add(bond_1);
                         protein.add(bond_2);
                         bounding_box.expandByObject(bond_1);

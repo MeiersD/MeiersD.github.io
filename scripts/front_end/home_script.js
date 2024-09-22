@@ -29,5 +29,5 @@ document.addEventListener("DOMContentLoaded", function() {
     button_manager.radio_switch('uniform-color');
     button_manager.radio_switch('on-rotation');
     button_manager.radio_switch('off-trace');
-    pdb_fetcher.send_message_to_build_scene("1fky");
+    pdb_fetcher.send_message_to_build_scene("1fly");
 });

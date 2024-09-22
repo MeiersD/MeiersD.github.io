@@ -86,6 +86,7 @@ class test3d {
             if(this.atomistic_protein)removeModel(this.atomistic_protein);
     
             // Build new models with updated atom array
+            //alert(this.atom_array)
             this.atomistic_protein = animation_utils.build_atomistic_model(this.atom_array);
             this.sticks_protein = animation_utils.build_sticks_model(this.atom_array);
     
