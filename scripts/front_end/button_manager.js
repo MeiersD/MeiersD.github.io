@@ -51,8 +51,8 @@ class ButtonManager {
         +   "\t\tBlues and greens are polar\n"
         +   "\t\tYellows are red\n"
         +   "\t\tOther atoms are aquamarine\n"
-        +   "Rainbow: Residues are colored diversely"
-        +   "\t\tOther atoms are black\n"
+        +   "Rainbow: Residues are colored diversely\n"
+        +   "\t\tOther atoms are black"
         this.residue_button.title = this.color_residue_title;
 
         this.on_rotation_button_title = 
@@ -98,14 +98,8 @@ class ButtonManager {
             case "off-trace":
                 this.pdb_fetcher.set_trace_status(false);
                 break;
-        }
-        // this.initiate_radio_event_listeners(value);
-        
+        }        
     }
-
-    // initiate_radio_event_listeners(value){
-    //     another switch statement which might make the event listeners for the elements in the thingy
-    // }
 
     initiate_button_event_listeners(){
         

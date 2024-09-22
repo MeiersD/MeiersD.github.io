@@ -17,20 +17,9 @@ class parsePDB {
         const atom_lines = await this.get_num_atoms();
         const num_atoms = atom_lines.length;
         while(first_model){
-
-
             const line = atom_lines[i];
-        
             // Extract fields based on column positions
-            const molecule = line.slice(0, 6).trim(); // Columns 1-6
-            const id = line.slice(6, 11).trim(); // Columns 7-11
-            const atom_type = line.slice(76, 78).trim(); // Columns 13-16
-            const residue_type = line.slice(17, 20).trim(); // Columns 18-20
-            const chain = line.slice(21, 22).trim(); // Column 22
-            const residue_id = line.slice(22, 26).trim(); // Columns 23-26
-            const x_coord = parseFloat(line.slice(30, 38).trim()); // Columns 31-38
-            const y_coord = parseFloat(line.slice(38, 46).trim()); // Columns 39-46
-            const z_coord = parseFloat(line.slice(46, 54).trim()); // Columns 47-54
+            const { id, molecule, atom_type, residue_type, chain, residue_id, x_coord, y_coord, z_coord } = parse(line); // Columns 47-54
             if (id === "1"){
                 scanned_atom_1 ++;
             }
@@ -51,14 +40,21 @@ class parsePDB {
                 first_model = false;
             }
         }
-        //remove waters
-        //this.atom_array = this.atom_array.filter(this.remove_waters);
         return this.atom_array;
-    }
 
-    // remove_waters(single_atom){
-    //     return single_atom.residue_type !== 'HOH'; //returns true or false
-    // }
+        function parse(line) {
+            const molecule = line.slice(0, 6).trim(); // Columns 1-6
+            const id = line.slice(6, 11).trim(); // Columns 7-11
+            const atom_type = line.slice(76, 78).trim(); // Columns 13-16
+            const residue_type = line.slice(17, 20).trim(); // Columns 18-20
+            const chain = line.slice(21, 22).trim(); // Column 22
+            const residue_id = line.slice(22, 26).trim(); // Columns 23-26
+            const x_coord = parseFloat(line.slice(30, 38).trim()); // Columns 31-38
+            const y_coord = parseFloat(line.slice(38, 46).trim()); // Columns 39-46
+            const z_coord = parseFloat(line.slice(46, 54).trim()); // Columns 47-54
+            return { id, molecule, atom_type, residue_type, chain, residue_id, x_coord, y_coord, z_coord };
+        }
+    }
 
     get_num_atoms() {
         const lines = this.file.split('\n');

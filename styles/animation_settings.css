@@ -7,7 +7,6 @@
     color: white;
     background-color: #242424;
     padding: 0;
-
 }
 
 .animation-menu-code, .animation-menu-description, .animation-menu-settings {
@@ -15,8 +14,6 @@
     font-size:normal;
     padding: 20px;
     position: absolute;
-    /* text-align: center; */
-    
 }
 
 .animation-menu-description {
@@ -46,28 +43,6 @@
 .animation-menu-trace {
     font-size: small;
 }
-
-.uniform-color-menu {
-    
-}
-.atomic-color-menu {
-
-}
-.residue-color-menu {
-
-}
-.on-rotation-menu {
-
-}
-
-
-
-
-
-
-
-
-
 
 .animation-menu-settings {
     top: 120px;

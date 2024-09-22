@@ -9,7 +9,6 @@ class PDBfetcher {
         this.keyword = '';
     }
 
-    
     check_pdb_input(pdb_input) {
         pdb_input.addEventListener('keydown', async (event) => {
             if (event.key === "Enter" && this.not_already_fetching) {
@@ -17,8 +16,6 @@ class PDBfetcher {
             }
         });
     }
-
-
 
     async fetch_pdb_from_rcsb() {
         const response = await fetch(`https://files.rcsb.org/view/${this.pdb_code}.pdb`);
@@ -71,12 +68,7 @@ class PDBfetcher {
             document.getElementById("animation-menu-description").innerHTML = 
                 "<br><br><span style='font-size: larger;'>Macromolecule type:</span><br>" 
                 + this.keyword;
-        }).then(() => {
-        }).then(() => {
         });
-        
-                        //start loading the model
-        //continue with more code that shouldn't be run if there was an error previously
     }
 
     change_rotation_speed(x_speed, y_speed, z_speed){
@@ -94,7 +86,6 @@ class PDBfetcher {
             this.temp.change_coloring(value);
         }
     }
-
 }
 
 export { PDBfetcher };
