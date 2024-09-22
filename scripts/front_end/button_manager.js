@@ -145,6 +145,7 @@ class ButtonManager {
         this.uniform_color_select.addEventListener('change', () =>{
             this.pdb_fetcher.change_coloring(this.uniform_color_select.value);
         })
+        this.pdb_fetcher.change_coloring("white");
     }
 
     case2(){
@@ -165,6 +166,7 @@ class ButtonManager {
         this.atomic_color_select.addEventListener('change', () =>{
             this.pdb_fetcher.change_coloring(this.atomic_color_select.value);
         })
+        this.pdb_fetcher.change_coloring("classic");
     }
 
     case3(){
@@ -186,6 +188,7 @@ class ButtonManager {
         this.residue_color_select.addEventListener('change', () =>{
             this.pdb_fetcher.change_coloring(this.residue_color_select.value);
         })
+        this.pdb_fetcher.change_coloring("magma");
     }
 
     case4(){

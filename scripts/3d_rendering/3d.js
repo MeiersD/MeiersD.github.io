@@ -19,12 +19,15 @@ var rotation_speed_y = 0.0025;
 var rotation_speed_z = 0.000;
 var trace_status = true; //determines if the model is either lines or sticks, initialized to true
 var spotlight_power = 2.0;
+var color_substatus = "white";
 
 class test3d {
     constructor(file){
         this.parse_pdb = new parsePDB(file, this);
         this.atom_array = [];
         this.force_rebuild = false;
+        this.sticks_protein;
+        this.atomistic_protein;
         
     }
 
@@ -39,8 +42,6 @@ class test3d {
         }).then(atom_array => {
             this.atom_array = atom_array;
             this.set_up_scene();
-        }).catch(error => {
-            console.error("Error in mainSequence:", error);
         });
     }
 
@@ -53,78 +54,101 @@ class test3d {
         animation_utils.add_resize_listener(renderer, camera);
     }
 
-    set_up_scene(){        
-        var atomistic_protein = animation_utils.build_atomistic_model(this.atom_array); //need to pass it the animation_utils object
-        var sticks_protein = animation_utils.build_sticks_model(this.atom_array);
-
-        const atomistic_bounding_box = animation_utils.get_atomistic_bounding_box();
-        const sticks_bounding_box = animation_utils.get_sticks_bounding_box();
-        var current_protein = sticks_protein;
-
-        const center = sticks_bounding_box.getCenter(new THREE.Vector3());
-        scene.add(sticks_protein);
-
-        const spotlight = new THREE.SpotLight(light_color, spotlight_power);
-        spotlight.position.copy(camera.position);
-        spotlight.target.position.copy(center);
-        spotlight.decay = 0;
-        scene.add(spotlight); // Add the spotlight to the scene
-        scene.add(spotlight.target); // Ensure the target is added to the scene
+    set_up_scene() {
+        this.force_rebuild = true;
         
-        const controls = new OrbitControls( camera, renderer.domElement)
-        controls.target.copy(center); // Set the target to the center of the bounding box
-        controls.update(); // Update the controls to reflect the new target
-
-        camera.lookAt(center)
-        controls.maxDistance = 750;
-
-        const update_model_display = () => {
-            //console.log(this.force_rebuild);
-            //console.log(this.atom_array[1].color)
-             if (this.force_rebuild) {
-                 // Rebuild both models with updated colors if forced
-                 scene.remove(sticks_protein);
-                 scene.remove(atomistic_protein);
-                 atomistic_protein = animation_utils.build_atomistic_model(this.atom_array);
-                 sticks_protein = animation_utils.build_sticks_model(this.atom_array);
-                 if (trace_status) scene.add(sticks_protein);
-                 if (!trace_status) scene.add(atomistic_protein);
-                 
-             }
-            this.force_rebuild = false;
-            
-            if (trace_status) {
-                if (current_protein !== sticks_protein) {
-                    scene.remove(current_protein);
-                    scene.add(sticks_protein);
-                    current_protein = sticks_protein;
-                }
-            } else if (!trace_status) {
-                if (current_protein !== atomistic_protein) {
-                    scene.remove(current_protein);
-                    scene.add(atomistic_protein);
-                    current_protein = atomistic_protein;
-                }
-            }
+        const rotationVectors = {
+            x: new THREE.Vector3(3, 3, 0),
+            y: new THREE.Vector3(0, 3, 0),
+            z: new THREE.Vector3(0, 0, 3)
         };
+
+        const updateModelDisplay = () => {
+            if (this.force_rebuild) {
+                rebuildModels();
+                this.force_rebuild = false;
+            }
     
+            const model = trace_status ? this.sticks_protein : this.atomistic_protein;
+            const center = trace_status 
+                ? animation_utils.get_sticks_bounding_box().getCenter(new THREE.Vector3()) 
+                : animation_utils.get_atomistic_bounding_box().getCenter(new THREE.Vector3());
+    
+            controls.target.copy(center); // Set controls to point at the center
+            camera.lookAt(center); // Ensure camera is focused on the center
+    
+            animateModelRotation(model, center);
+        }
+
+        const rebuildModels = () => {
+            // Remove old models if they exist
+            if(this.sticks_protein)removeModel(this.sticks_protein);
+            if(this.atomistic_protein)removeModel(this.atomistic_protein);
+    
+            // Build new models with updated atom array
+            this.atomistic_protein = animation_utils.build_atomistic_model(this.atom_array);
+            this.sticks_protein = animation_utils.build_sticks_model(this.atom_array);
+    
+            const center = trace_status 
+                ? animation_utils.get_sticks_bounding_box().getCenter(new THREE.Vector3()) 
+                : animation_utils.get_atomistic_bounding_box().getCenter(new THREE.Vector3());
+    
+            // Add the current protein model to the scene and set spotlight target
+            const currentProtein = trace_status ? this.sticks_protein : this.atomistic_protein;
+            scene.add(currentProtein);
+            spotlight.target.position.copy(center);
+        }
+        
+        this.atom_array = color_utils.interpret_colors(color_substatus, this.atom_array);
+    
+        // Initialize spotlight
+        const spotlight = createSpotlight();
+        
+        // Initialize Orbit Controls
+        const controls = initializeControls(camera, renderer.domElement);
+        
         const animate = () => {
-            update_model_display();
-    
-            const rotation_vector_x = new THREE.Vector3(3, 3, 0);
-            const rotation_vector_y = new THREE.Vector3(0, 3, 0);
-            const rotation_vector_z = new THREE.Vector3(0, 0, 3);
-    
-            animation_utils.rotate_around_point(current_protein, center, rotation_vector_x, rotation_speed_x);
-            animation_utils.rotate_around_point(current_protein, center, rotation_vector_y, rotation_speed_y);
-            animation_utils.rotate_around_point(current_protein, center, rotation_vector_z, rotation_speed_z);
-    
-            spotlight.position.copy(camera.position); // Ensure the spotlight always points at the center
+            updateModelDisplay();
+            updateSpotlightPosition(spotlight, camera);
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         };
+    
+        // Start animation loop
         animate();
-    }    
+        
+        function createSpotlight() {
+            const spotlight = new THREE.SpotLight(light_color, spotlight_power);
+            spotlight.position.copy(camera.position);
+            spotlight.decay = 0;
+            scene.add(spotlight);
+            scene.add(spotlight.target); // Ensure the target is added to the scene
+            return spotlight;
+        }
+        
+        function initializeControls(camera, domElement) {
+            const controls = new OrbitControls(camera, domElement);
+            controls.maxDistance = 750;
+            controls.update();
+            return controls;
+        }
+    
+        function removeModel(model) {
+            if (model) {
+                scene.remove(model);
+            }
+        }
+    
+        function animateModelRotation(model, center) {
+            animation_utils.rotate_around_point(model, center, rotationVectors.x, rotation_speed_x);
+            animation_utils.rotate_around_point(model, center, rotationVectors.y, rotation_speed_y);
+            animation_utils.rotate_around_point(model, center, rotationVectors.z, rotation_speed_z);
+        }
+    
+        function updateSpotlightPosition(spotlight, camera) {
+            spotlight.position.copy(camera.position); // Spotlight follows the camera
+        }
+    } 
 
     clear_scene(){
         if (scene) {
@@ -147,11 +171,11 @@ class test3d {
     }
 
     set_trace_status(value){
-        trace_status = value;       
+        trace_status = value;
     }
 
     change_coloring(value){
-        console.log("updating color scheme to: ", value);
+        color_substatus = value;
         this.atom_array = color_utils.interpret_colors(value, this.atom_array);
         this.force_rebuild = true;
         }
