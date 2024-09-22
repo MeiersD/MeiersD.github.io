@@ -37,33 +37,64 @@ function build_sticks_model(atom_array){
     const bond_length = 2; // in angstroms ig?
     const scanning_length = 40; //this is the number of lines above the index line that will be scanned for bonds;
     for (let index = 0; index < len; index++){
-        for (let j = 0; j < scanning_length; j++){
-            const target_atom_index = j + index;
-                if (target_atom_index > 0 && target_atom_index < len){
-                    const dist = distance3D(
-                        atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord,
-                        atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord
-                    );
-                    if (dist < bond_length && 
-                        index !== target_atom_index &&
-                        atom_array[index].atom_type !== "H" &&
-                        atom_array[target_atom_index].atom_type !== "H"){
-                        const bond_1 = build_bond_1(
-                            new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
-                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
-                            atom_array[index].color
+        if (atom_array[index].atom_type !== "S") {
+            for (let j = 0; j < scanning_length; j++){
+                const target_atom_index = j + index;
+                    if (target_atom_index > 0 && target_atom_index < len){
+                        const dist = distance3D(
+                            atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord,
+                            atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord
                         );
-                        const bond_2 = build_bond_2(
-                            new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
-                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
-                            atom_array[target_atom_index].color
-                        )
-                        protein.add(bond_1);
-                        protein.add(bond_2);
-                        bounding_box.expandByObject(bond_1);
-                        bounding_box.expandByObject(bond_2);
+                        if (dist < bond_length && 
+                            index !== target_atom_index &&
+                            atom_array[index].atom_type !== "H" &&
+                            atom_array[target_atom_index].atom_type !== "H"){
+                            const bond_1 = build_bond_1(
+                                new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                                new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                                atom_array[index].color
+                            );
+                            const bond_2 = build_bond_2(
+                                new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                                new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                                atom_array[target_atom_index].color
+                            )
+                            protein.add(bond_1);
+                            protein.add(bond_2);
+                            bounding_box.expandByObject(bond_1);
+                            bounding_box.expandByObject(bond_2);
+                        }
                     }
-                }
+            }
+        } else {
+            for (let j = 0; j < atom_array.length; j++){
+                const target_atom_index = j + index;
+                    if (target_atom_index > 0 && target_atom_index < len){
+                        const dist = distance3D(
+                            atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord,
+                            atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord
+                        );
+                        if ((dist < bond_length || (dist < 3 && atom_array[target_atom_index].atom_type === "S")) && 
+                            index !== target_atom_index &&
+                            atom_array[index].atom_type !== "H" &&
+                            atom_array[target_atom_index].atom_type !== "H"){
+                            const bond_1 = build_bond_1(
+                                new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                                new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                                atom_array[index].color
+                            );
+                            const bond_2 = build_bond_2(
+                                new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                                new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                                atom_array[target_atom_index].color
+                            )
+                            protein.add(bond_1);
+                            protein.add(bond_2);
+                            bounding_box.expandByObject(bond_1);
+                            bounding_box.expandByObject(bond_2);
+                        }
+                    }
+            }
         }
     }
     sticks_bounding_box = bounding_box;
