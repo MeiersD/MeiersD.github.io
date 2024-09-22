@@ -50,14 +50,21 @@ function build_sticks_model(atom_array){
                         index !== target_atom_index &&
                         atom_array[index].atom_type !== "H" &&
                         atom_array[target_atom_index].atom_type !== "H"){
-                        const bond = build_bond(
+                        const bond_1 = build_bond_1(
                             new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
                             new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
                             atom_array[index].color
                         );
+                        const bond_2 = build_bond_2(
+                            new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
+                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                            atom_array[target_atom_index].color
+                        )
                         // console.log("now bonding atoms: ", index, " and ", target_atom_index);
-                        protein.add(bond);
-                        bounding_box.expandByObject(bond);
+                        protein.add(bond_1);
+                        protein.add(bond_2);
+                        bounding_box.expandByObject(bond_1);
+                        bounding_box.expandByObject(bond_2);
                     }
                 }
         }
@@ -66,14 +73,31 @@ function build_sticks_model(atom_array){
     return protein;
 }
 
-function build_bond(pointX, pointY, curr_color){
+function build_bond_1(point_X, point_Y, curr_color){
+    //curr_color = 0xffffff;
+    const midpoint = new THREE.Vector3().lerpVectors(point_X, point_Y, 0.5);
     // edge from X to Y
-    var direction = new THREE.Vector3().subVectors( pointY, pointX );
+    var direction = new THREE.Vector3().subVectors( midpoint, point_X );
     // cylinder: radiusAtTop, radiusAtBottom, height, radiusSegments, heightSegments
     var edgeGeometry = new THREE.CylinderGeometry( 0.2, 0.2, direction.length(), 6, 4 ); // Adjusted radius for bond size
     var edge = new THREE.Mesh( edgeGeometry, new THREE.MeshPhongMaterial( { color: curr_color } ) );
     // Set the position at the midpoint
-    edge.position.copy(pointX.clone().add(direction.multiplyScalar(0.5)));
+    edge.position.copy(point_X.clone().add(direction.multiplyScalar(0.5)));
+    // Align the cylinder along the bond direction
+    edge.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+    return edge;
+}
+
+function build_bond_2(point_X, point_Y, curr_color){
+    const midpoint = new THREE.Vector3().lerpVectors(point_X, point_Y, 0.5);
+    // edge from X to Y
+    var direction = new THREE.Vector3().subVectors( point_Y, midpoint );
+    // cylinder: radiusAtTop, radiusAtBottom, height, radiusSegments, heightSegments
+    var edgeGeometry = new THREE.CylinderGeometry( 0.2, 0.2, direction.length(), 6, 4 ); // Adjusted radius for bond size
+    var edge = new THREE.Mesh( edgeGeometry, new THREE.MeshPhongMaterial( { color: curr_color } ) );
+    // Set the position at the midpoint
+    const quarterPoint = new THREE.Vector3().lerpVectors(midpoint, point_Y, 0.5); // Halfway between midpoint and point_Y
+    edge.position.copy(quarterPoint); 
     // Align the cylinder along the bond direction
     edge.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
     return edge;

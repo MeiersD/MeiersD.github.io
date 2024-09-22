@@ -9,7 +9,7 @@ function interpret_colors(value, atom_array){
         case "magenta":
             return set_uniform(atom_array, 0xff00ff);
         case "gold":
-            return set_uniform(0xffd700, atom_array);
+            return set_uniform(atom_array, 0xffd700);
         case "classic":
             return set_atomistic_classic(atom_array);
         case "pastel":
