@@ -19,7 +19,7 @@ var rotation_speed_y = 0.0025;
 var rotation_speed_z = 0.000;
 var trace_status = true; //determines if the model is either lines or sticks, initialized to true
 var spotlight_power = 2.0;
-var color_substatus = "white";
+var color_substatus = "classic";
 
 class test3d {
     constructor(file){
