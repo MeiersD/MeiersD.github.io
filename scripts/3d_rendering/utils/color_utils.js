@@ -318,19 +318,19 @@ function set_atomistic_pastel(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].atom_type){
             case "C":
-                atom_array[i].color = 0xb3b3b3;
+                atom_array[i].color = 0x8b9cab;
                 break;
             case "N":
-                atom_array[i].color = 0x93ccff;
+                atom_array[i].color = 0x2370ff;
                 break;
             case "H":
                 atom_array[i].color = 0xdaffda;
                 break;
             case "O":
-                atom_array[i].color = 0xff9af9;
+                atom_array[i].color = 0xff546b;
                 break;
             case "S":
-                atom_array[i].color = 0xfaff8d;
+                atom_array[i].color = 0xfae100;
                 break;
             case "P":
                 atom_array[i].color = 0xffc800;
