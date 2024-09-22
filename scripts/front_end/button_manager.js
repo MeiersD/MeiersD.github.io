@@ -49,8 +49,8 @@ class ButtonManager {
         +   "\t\tOther atoms are white\n"
         +   "Plasma:   Purples are hydrophobic\n"
         +   "\t\tBlues and greens are polar\n"
-        +   "\t\tYellows are red\n"
-        +   "\t\tOther atoms are aquamarine\n"
+        +   "\t\tYellows are hydrophilic\n"
+        +   "\t\tOther atoms are red\n"
         +   "Rainbow: Residues are colored diversely\n"
         +   "\t\tOther atoms are black"
         this.residue_button.title = this.color_residue_title;
