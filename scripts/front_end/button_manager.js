@@ -142,6 +142,9 @@ class ButtonManager {
             </div>
             `;
         this.uniform_color_select = document.getElementById('uniform-color-select');
+        this.uniform_color_select.addEventListener('change', () =>{
+            this.pdb_fetcher.change_coloring(this.uniform_color_select.value);
+        })
     }
 
     case2(){
@@ -159,6 +162,9 @@ class ButtonManager {
             </div>
         `;
         this.atomic_color_select = document.getElementById('atomic-color-select');
+        this.atomic_color_select.addEventListener('change', () =>{
+            this.pdb_fetcher.change_coloring(this.atomic_color_select.value);
+        })
     }
 
     case3(){
@@ -177,6 +183,9 @@ class ButtonManager {
             </div>
         `;
         this.residue_color_select = document.getElementById('residue-color-select');
+        this.residue_color_select.addEventListener('change', () =>{
+            this.pdb_fetcher.change_coloring(this.residue_color_select.value);
+        })
     }
 
     case4(){

@@ -20,11 +20,11 @@ var rotation_speed_z = 0.000;
 var trace_status = true; //determines if the model is either lines or sticks, initialized to true
 var spotlight_power = 2.0;
 
-
 class test3d {
     constructor(file){
         this.parse_pdb = new parsePDB(file, this);
         this.atom_array = [];
+        this.force_rebuild = false;
         
     }
 
@@ -53,18 +53,14 @@ class test3d {
         animation_utils.add_resize_listener(renderer, camera);
     }
 
-    set_up_scene(){
-        
-        const atomistic_protein = animation_utils.build_atomistic_model(this.atom_array); //need to pass it the animation_utils object
-        const sticks_protein = animation_utils.build_sticks_model(this.atom_array);
+    set_up_scene(){        
+        var atomistic_protein = animation_utils.build_atomistic_model(this.atom_array); //need to pass it the animation_utils object
+        var sticks_protein = animation_utils.build_sticks_model(this.atom_array);
 
         const atomistic_bounding_box = animation_utils.get_atomistic_bounding_box();
         const sticks_bounding_box = animation_utils.get_sticks_bounding_box();
         var current_protein = sticks_protein;
-        
-        // const center = atomistic_bounding_box.getCenter(new THREE.Vector3());
-        // scene.add(atomistic_protein);
-    
+
         const center = sticks_bounding_box.getCenter(new THREE.Vector3());
         scene.add(sticks_protein);
 
@@ -83,6 +79,19 @@ class test3d {
         controls.maxDistance = 750;
 
         const update_model_display = () => {
+            //console.log(this.force_rebuild);
+            //console.log(this.atom_array[1].color)
+             if (this.force_rebuild) {
+                 // Rebuild both models with updated colors if forced
+                 scene.remove(sticks_protein);
+                 scene.remove(atomistic_protein);
+                 atomistic_protein = animation_utils.build_atomistic_model(this.atom_array);
+                 sticks_protein = animation_utils.build_sticks_model(this.atom_array);
+                 if (trace_status) scene.add(sticks_protein);
+                 if (!trace_status) scene.add(atomistic_protein);
+                 
+             }
+            this.force_rebuild = false;
             
             if (trace_status) {
                 if (current_protein !== sticks_protein) {
@@ -90,7 +99,7 @@ class test3d {
                     scene.add(sticks_protein);
                     current_protein = sticks_protein;
                 }
-            } else {
+            } else if (!trace_status) {
                 if (current_protein !== atomistic_protein) {
                     scene.remove(current_protein);
                     scene.add(atomistic_protein);
@@ -140,6 +149,12 @@ class test3d {
     set_trace_status(value){
         trace_status = value;       
     }
+
+    change_coloring(value){
+        console.log("updating color scheme to: ", value);
+        this.atom_array = color_utils.interpret_colors(value, this.atom_array);
+        this.force_rebuild = true;
+        }
 }
 
 export { test3d };

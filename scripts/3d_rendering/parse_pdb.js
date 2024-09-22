@@ -32,7 +32,6 @@ class parsePDB {
             const y_coord = parseFloat(line.slice(38, 46).trim()); // Columns 39-46
             const z_coord = parseFloat(line.slice(46, 54).trim()); // Columns 47-54
             if (id === "1"){
-                console.log("scanning atom 1");
                 scanned_atom_1 ++;
             }
             // Create and push new Atom instance

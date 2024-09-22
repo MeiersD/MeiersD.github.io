@@ -19,6 +19,7 @@ function build_atomistic_model(atom_array){
 
     for (let i = 0; i < atom_array.length; i++){
         var atom_color = atom_array[i].color;
+        console.log("color is: ", atom_color);
         var geometry = new THREE.SphereGeometry(0.5, 15, 15);
         var material = new THREE.MeshPhongMaterial({ color: atom_color });
         var atom = new THREE.Mesh(geometry, material);
@@ -51,7 +52,8 @@ function build_sticks_model(atom_array){
                         atom_array[target_atom_index].atom_type !== "H"){
                         const bond = build_bond(
                             new THREE.Vector3(atom_array[index].x_coord, atom_array[index].y_coord, atom_array[index].z_coord),
-                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord)
+                            new THREE.Vector3(atom_array[target_atom_index].x_coord, atom_array[target_atom_index].y_coord, atom_array[target_atom_index].z_coord),
+                            atom_array[index].color
                         );
                         // console.log("now bonding atoms: ", index, " and ", target_atom_index);
                         protein.add(bond);
@@ -64,19 +66,18 @@ function build_sticks_model(atom_array){
     return protein;
 }
 
-function build_bond(pointX, pointY){
+function build_bond(pointX, pointY, curr_color){
     // edge from X to Y
     var direction = new THREE.Vector3().subVectors( pointY, pointX );
     // cylinder: radiusAtTop, radiusAtBottom, height, radiusSegments, heightSegments
     var edgeGeometry = new THREE.CylinderGeometry( 0.2, 0.2, direction.length(), 6, 4 ); // Adjusted radius for bond size
-    var edge = new THREE.Mesh( edgeGeometry, new THREE.MeshPhongMaterial( { color: 0x0000ff } ) );
+    var edge = new THREE.Mesh( edgeGeometry, new THREE.MeshPhongMaterial( { color: curr_color } ) );
     // Set the position at the midpoint
     edge.position.copy(pointX.clone().add(direction.multiplyScalar(0.5)));
     // Align the cylinder along the bond direction
     edge.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
     return edge;
 }
-
 
 function get_atomistic_bounding_box(){
     return atomistic_bounding_box;
@@ -102,6 +103,7 @@ function rotate_around_point(obj, point, axis, theta, pointIsWorld = false){
     obj.rotateOnAxis(axis, theta); // rotate the OBJECT
     return;
 }
+
 function add_resize_listener(renderer, camera){
     window.addEventListener('resize', () => {
         var width = window.innerWidth;

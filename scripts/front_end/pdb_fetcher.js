@@ -89,6 +89,12 @@ class PDBfetcher {
         }
     }
 
+    change_coloring(value){
+        if(this.temp){
+            this.temp.change_coloring(value);
+        }
+    }
+
 }
 
 export { PDBfetcher };
