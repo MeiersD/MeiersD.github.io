@@ -1,0 +1,44 @@
+.header {
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;     /* Center content horizontally */
+    background-color: #242424;
+    font-size: 20px;
+    color: white;
+    z-index: 1000;
+    padding: 10px 0; /* Adjust padding for spacing */
+}
+
+.title{
+    display: flex;
+    margin-bottom: 10px;
+    
+}
+
+.hyperlinks-container{
+    text-align: center;
+    width: 70%;
+    color: #ffffff;
+}
+
+.link:link {
+    color: white;          /* Sets the text color to white */    
+}
+
+.link:hover {
+    color: #949494;          /* Optional: Change color on hover for better visibility */
+}
+
+.link:visited{
+    color: white;
+}
+
+.separator {
+    padding: 7%;
+}
+
