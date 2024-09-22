@@ -28,17 +28,17 @@ class ButtonManager {
         this.uniform_button.title = this.color_uniform_title;
 
         this.color_atomic_title =        
-            "Classic:    Carbons are charcoal\n"
-        +   "\t\tNitrogens are blue\n"
-        +   "\t\tOxygens are red\n"
-        +   "\t\tSulfurs are yellow\n"
-        +   "\t\tPhosphorous are orange\n"
+            "Classic:    Carbon is charcoal\n"
+        +   "\t\tNitrogen is blue\n"
+        +   "\t\tOxygen is red\n"
+        +   "\t\tSulfur is yellow\n"
+        +   "\t\tPhosphorus is orange\n"
         +   "\t\tOther atoms are green\n"
-        +   "Pastel:     Carbons are slate-gray\n"
-        +   "\t\tNitrogens are baby-blue\n"
-        +   "\t\tOxygens are baby-pink\n"
-        +   "\t\tSulfurs are sunshine\n"
-        +   "\t\tPhosphorous are neon-orange\n"
+        +   "Pastel:     Carbon is slate-gray\n"
+        +   "\t\tNitrogen is baby-blue\n"
+        +   "\t\tOxygen is baby-pink\n"
+        +   "\t\tSulfur is sunshine\n"
+        +   "\t\tPhosphorus is neon-orange\n"
         +   "\t\tOther atoms are aquamarine\n"
         this.atomic_button.title = this.color_atomic_title;
 
