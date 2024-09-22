@@ -64,3 +64,12 @@ body {
     max-height: 100%; /* Make sure it fits within the container */
     object-fit: contain; /* Maintain aspect ratio */
 }
+
+.text-container {
+    margin-top: 2%;
+    width:70%;
+}
+
+.footer {
+    height:15%;
+}
