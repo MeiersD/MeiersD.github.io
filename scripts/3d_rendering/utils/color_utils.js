@@ -29,16 +29,16 @@ function set_residue_magma(atom_array){
         switch (atom_array[i].residue_type){
             //DNA Nucleotides
             case "DA":
-                atom_array[i].color = 0x373737;
+                atom_array[i].color = 0xFF2800;
                 break;
             case "DT":
-                atom_array[i].color = 0x1e34c9;
+                atom_array[i].color = 0xFF6A00;
                 break;
             case "DC":
-                atom_array[i].color = 0xffffff;
+                atom_array[i].color = 0x682600;
                 break;
             case "DG":
-                atom_array[i].color = 0xdc1111;
+                atom_array[i].color = 0x302000;
                 break;
             //Charged Amino Acids at pH7
             case "ARG":
@@ -104,7 +104,7 @@ function set_residue_magma(atom_array){
                 atom_array[i].color = 0x501E1F;
                 break;
             default:
-                atom_array[i].color = 0x131313;
+                atom_array[i].color = 0xffffff;
                 break;
         }
     }
@@ -116,82 +116,82 @@ function set_residue_plasma(atom_array){
         switch (atom_array[i].residue_type){
             //DNA Nucleotides
             case "DA":
-                atom_array[i].color = 0x373737;
+                atom_array[i].color = 0x6600D6;
                 break;
             case "DT":
-                atom_array[i].color = 0x1e34c9;
+                atom_array[i].color = 0x3E08FF;
                 break;
             case "DC":
-                atom_array[i].color = 0xffffff;
+                atom_array[i].color = 0x3FFF2A;
                 break;
             case "DG":
-                atom_array[i].color = 0xdc1111;
+                atom_array[i].color = 0xE1FF33;
                 break;
             //Charged Amino Acids at pH7
             case "ARG":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xDDFF20;
                 break;
             case "LYS":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xE9FF84;
                 break;
             case "HIS":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xEAFF70;
                 break;
             case "GLU":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xD2F600;
                 break;
             case "ASP":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xFCFF34;
                 break;
             //Polar Amino Acids
             case "GLN":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x0023D7;
                 break;
             case "ASN":
                 atom_array[i].color = 0xf4e110;
                 break;
             case "THR":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x76FF25;
                 break;
             case "SER":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x00D3B2;
                 break;
             case "CYS":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x4EFFBD;
                 break;
             case "PRO":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x0BE3FF;
                 break;
             //Non-polar Amino Acids
             case "GLY":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x7F00E3;
                 break;
             case "PHE":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x4700A3;
                 break;
             case "TYR":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x8B00F4;
                 break;
             case "VAL":
                 atom_array[i].color = 0xf4e110;
                 break;
             case "ALA":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x5300B7;
                 break;
             case "LEU":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x7900CF;
                 break;
             case "ILE":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x5400F2;
                 break;
             case "TRP":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x927DFF;
                 break;
             case "MET":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x744DFF;
                 break;
             default:
-                atom_array[i].color = 0xd010f4;
+                atom_array[i].color = 0xCDFFF7;
                 break;
         }
     }
@@ -203,82 +203,82 @@ function set_residue_rainbow(atom_array){
         switch (atom_array[i].residue_type){
             //DNA Nucleotides
             case "DA":
-                atom_array[i].color = 0x373737;
+                atom_array[i].color = 0xF20100;
                 break;
             case "DT":
-                atom_array[i].color = 0x1e34c9;
+                atom_array[i].color = 0x0BC8FF;
                 break;
             case "DC":
-                atom_array[i].color = 0xffffff;
+                atom_array[i].color = 0x71FF00;
                 break;
             case "DG":
-                atom_array[i].color = 0xdc1111;
+                atom_array[i].color = 0xE008FF;
                 break;
             //Charged Amino Acids at pH7
             case "ARG":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x00EE97;
                 break;
             case "LYS":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x00DAF2;
                 break;
             case "HIS":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xFFEB04;
                 break;
             case "GLU":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xB2FF04;
                 break;
             case "ASP":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x4BFF07;
                 break;
             //Polar Amino Acids
             case "GLN":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xF70E00;
                 break;
             case "ASN":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xF27700;
                 break;
             case "THR":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x005BE7;
                 break;
             case "SER":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xEB008A;
                 break;
             case "CYS":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xFF979F;
                 break;
             case "PRO":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0x660083;
                 break;
             //Non-polar Amino Acids
             case "GLY":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x84A900;
                 break;
             case "PHE":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xB00200;
                 break;
             case "TYR":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xDAA2FF;
                 break;
             case "VAL":
-                atom_array[i].color = 0xf4e110;
+                atom_array[i].color = 0xFFA269;
                 break;
             case "ALA":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x6FFFFC;
                 break;
             case "LEU":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x005760;
                 break;
             case "ILE":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x8983FF;
                 break;
             case "TRP":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0x890BFF;
                 break;
             case "MET":
-                atom_array[i].color = 0xf47c10;
+                atom_array[i].color = 0xDE00E8;
                 break;
             default:
-                atom_array[i].color = 0xd010f4;
+                atom_array[i].color = 0xCDFFF7;
                 break;
         }
     }
