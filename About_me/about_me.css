@@ -1,5 +1,5 @@
 .header {
-    height: 10%;
+    height: 60px;
     width: 100%;
     position: fixed;
     top: 0;
@@ -10,7 +10,9 @@
     background-color: #242424;
     font-size: 20px;
     color: white;
+    z-index: 1000;
     padding: 10px 0; /* Adjust padding for spacing */
+    overflow: hidden;
 }
 
 .title{
@@ -23,6 +25,7 @@
     text-align: center;
     width: 90%;
     color: #ffffff;
+    
 }
 
 .link:link {
@@ -40,6 +43,8 @@
 .separator {
     padding: 6%;
 }
+
+
 
 
 body {
