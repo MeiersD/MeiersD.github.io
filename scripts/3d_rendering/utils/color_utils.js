@@ -28,7 +28,6 @@ function set_atomistic_classic(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].atom_type){
             case "C":
-                console.log("i see carbon!");
                 atom_array[i].color = 0x373737;
                 break;
             case "N":
@@ -48,6 +47,35 @@ function set_atomistic_classic(atom_array){
                 break;
             default:
                 atom_array[i].color = 0xd010f4;
+                break;
+        }
+    }
+    return atom_array;
+}
+
+function set_atomistic_pastel(atom_array){
+    for (let i = 0; i < atom_array.length; i++){
+        switch (atom_array[i].atom_type){
+            case "C":
+                atom_array[i].color = 0xb3b3b3;
+                break;
+            case "N":
+                atom_array[i].color = 0x93ccff;
+                break;
+            case "H":
+                atom_array[i].color = 0xdaffda;
+                break;
+            case "O":
+                atom_array[i].color = 0xff9af9;
+                break;
+            case "S":
+                atom_array[i].color = 0xfaff8d;
+                break;
+            case "P":
+                atom_array[i].color = 0xffc800;
+                break;
+            default:
+                atom_array[i].color = 0x00ffa2;
                 break;
         }
     }
