@@ -1,0 +1,66 @@
+.header {
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;     /* Center content horizontally */
+    background-color: #242424;
+    font-size: 20px;
+    color: white;
+    padding: 10px 0; /* Adjust padding for spacing */
+}
+
+.title{
+    display: flex;
+    margin-bottom: 10px;
+    
+}
+
+.hyperlinks-container{
+    text-align: center;
+    width: 90%;
+    color: #ffffff;
+}
+
+.link:link {
+    color: white;          /* Sets the text color to white */    
+}
+
+.link:hover {
+    color: #949494;          /* Optional: Change color on hover for better visibility */
+}
+
+.link:visited{
+    color: white;
+}
+
+.separator {
+    padding: 6%;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    margin-top: 7%; /* Space for the fixed header */
+    height: 60%;
+    width: 60%; /* Adjust width as needed */
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+}
+
+.my-img {
+    display: block;
+    max-width: 100%; /* Make the image responsive */
+    max-height: 100%; /* Make sure it fits within the container */
+    object-fit: contain; /* Maintain aspect ratio */
+}
