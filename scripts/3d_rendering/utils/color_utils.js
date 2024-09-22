@@ -191,7 +191,7 @@ function set_residue_plasma(atom_array){
                 atom_array[i].color = 0x744DFF;
                 break;
             default:
-                atom_array[i].color = 0xCDFFF7;
+                atom_array[i].color = 0xff0000;
                 break;
         }
     }
@@ -278,7 +278,7 @@ function set_residue_rainbow(atom_array){
                 atom_array[i].color = 0xDE00E8;
                 break;
             default:
-                atom_array[i].color = 0xCDFFF7;
+                atom_array[i].color = 0x000000;
                 break;
         }
     }
@@ -307,7 +307,7 @@ function set_atomistic_classic(atom_array){
                 atom_array[i].color = 0xf47c10;
                 break;
             default:
-                atom_array[i].color = 0xd010f4;
+                atom_array[i].color = 0x2DFF03;
                 break;
         }
     }

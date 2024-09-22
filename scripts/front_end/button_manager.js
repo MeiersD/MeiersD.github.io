@@ -33,23 +33,26 @@ class ButtonManager {
         +   "\t\tOxygens are red\n"
         +   "\t\tSulfurs are yellow\n"
         +   "\t\tPhosphorous are orange\n"
-        +   "\t\tHydrogens are white\n"
+        +   "\t\tOther atoms are green\n"
         +   "Pastel:     Carbons are slate-gray\n"
         +   "\t\tNitrogens are baby-blue\n"
         +   "\t\tOxygens are baby-pink\n"
         +   "\t\tSulfurs are sunshine\n"
         +   "\t\tPhosphorous are neon-orange\n"
-        +   "\t\tHydrogens are off-white\n"
+        +   "\t\tOther atoms are aquamarine\n"
         this.atomic_button.title = this.color_atomic_title;
 
         this.color_residue_title =
             "Magma:  Browns are hydrophobic\n"
         +   "\t\tReds are polar\n"
         +   "\t\tYellows are hydrophilic\n"
+        +   "\t\tOther atoms are white\n"
         +   "Plasma:   Purples are hydrophobic\n"
         +   "\t\tBlues and greens are polar\n"
-        +   "\t\tYellows are hydrophilic\n"
+        +   "\t\tYellows are red\n"
+        +   "\t\tOther atoms are aquamarine\n"
         +   "Rainbow: Residues are colored diversely"
+        +   "\t\tOther atoms are black\n"
         this.residue_button.title = this.color_residue_title;
 
         this.on_rotation_button_title = 
