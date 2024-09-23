@@ -29,7 +29,7 @@ body {
 .scene-container {
     position: fixed;
     width: 80%;
-    height:95%;
+    height:90%;
     bottom: 0;
     right: 0;
     opacity: 0;
