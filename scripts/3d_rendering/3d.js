@@ -37,9 +37,6 @@ class test3d {
         this.clear_scene();
         this.initialize_scene();
         this.parse_pdb.get_atom_lines().then(total_steps => {
-            //for anyone curious about the loading bar, I tried for a long time to get this to work and eventually gave up
-            //loading_bar.show_loading_bar(total_steps);
-            //return new Promise(resolve => setTimeout(resolve, 100));
         }).then(() => {
             return this.parse_pdb.start_parsing();
         }).then(atom_array => {
@@ -47,40 +44,6 @@ class test3d {
             this.set_up_scene();
         });
     }
-
-    setupVR() {
-        // this.cameraGroup = new THREE.Group(); 
-        // this.cameraGroup.position.copy(camera.position); // Initially copy the camera position
-        // this.cameraGroup.quaternion.copy(camera.quaternion); // Copy the camera rotation (quaternion)
-        // scene.add(this.cameraGroup); // Add the cameraGroup to the scene
-
-        let controller1 = renderer.xr.getController(0);
-        let controller2 = renderer.xr.getController(1);
-        scene.add(controller1);
-        scene.add(controller2);
-
-        console.log("setting up vr");
-
-        /** position VR camera with respect to actual camera on session start */
-        // renderer.xr.addEventListener("sessionstart", (e) => {
-        //     this.cameraGroup.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
-        //     this.cameraGroup.quaternion.set(this.camera.quaternion.x, this.camera.quaternion.y, this.camera.quaternion.z, this.camera.quaternion.w);
-        //     camera.position.set(0, 0, 0);
-        //     camera.quaternion.set(0, 0, 0, 1);
-        // });
-        
-        // /** revert back actual camera position when VR is turned off */
-        // renderer.xr.addEventListener("sessionend", (e) => {
-        //     camera.position.set(this.cameraGroup.position.x, this.cameraGroup.position.y, this.cameraGroup.position.z);
-        //     camera.quaternion.set(this.cameraGroup.quaternion.x, this.cameraGroup.quaternion.y, this.cameraGroup.quaternion.z, this.cameraGroup.quaternion.w);
-        //     this.cameraGroup.position.set(0, 0, 0);
-        //     this.cameraGroup.quaternion.set(0, 0, 0, 1);
-        // });
-    
-        renderer.xr.enabled = true;
-        document.body.appendChild(ARButton.createButton(renderer));
-    }
-
 
     initialize_scene() {
 
@@ -90,7 +53,8 @@ class test3d {
         animation_utils.add_resize_listener(renderer, camera);
         scene_container.classList.add("active");
 
-        this.setupVR();
+        renderer.xr.enabled = true;
+        document.body.appendChild(ARButton.createButton(renderer));
 
         scene_container.classList.add("active");
     }
