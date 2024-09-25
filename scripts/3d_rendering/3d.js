@@ -82,7 +82,7 @@ class test3d {
         // });
     
         renderer.xr.enabled = true;
-        document.body.appendChild(VRButton.createButton(renderer));
+        document.body.appendChild(ARButton.createButton(renderer));
     }
 
 
@@ -94,20 +94,9 @@ class test3d {
         animation_utils.add_resize_listener(renderer, camera);
         scene_container.classList.add("active");
 
-        // let VR = true; //VR if true, AR if false
-        // if (VR) {
-            // const vr_button = VRButton.createButton(renderer);
-            // scene_container.appendChild(vr_button);
-            this.setupVR();
-        // }else{
-        //     const ar_button = ARButton.createButton(renderer);
-        //     scene_container.appendChild(ar_button);
-        // }
-        
-        
-        
+        this.setupVR();
+
         scene_container.classList.add("active");
-        renderer.xr.enabled = true;
     }
 
     set_up_scene() {
