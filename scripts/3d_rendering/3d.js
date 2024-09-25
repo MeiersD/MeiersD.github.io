@@ -49,28 +49,37 @@ class test3d {
     }
 
     setupVR() {
-        // controller1 = renderer.xr.getController(0); // Get the first controller
-        // controller2 = renderer.xr.getController(1); // Get the second controller
-        // scene.add(controller1);
-        // scene.add(controller2);
+        // this.cameraGroup = new THREE.Group(); 
+        // this.cameraGroup.position.copy(camera.position); // Initially copy the camera position
+        // this.cameraGroup.quaternion.copy(camera.quaternion); // Copy the camera rotation (quaternion)
+        // scene.add(this.cameraGroup); // Add the cameraGroup to the scene
+
+        controller1 = renderer.xr.getController(0);
+        controller2 = renderer.xr.getController(1);
+        scene.add(controller1);
+        scene.add(controller2);
+
+        const controllerModelFactory = new THREE.XRButton.createControllerModel(renderer);
+        controller1.add(controllerModelFactory);
+        controller2.add(controllerModelFactory);
 
         console.log("setting up vr");
 
         /** position VR camera with respect to actual camera on session start */
-        renderer.xr.addEventListener("sessionstart", (e) => {
-            this.cameraGroup.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
-            this.cameraGroup.quaternion.set(this.camera.quaternion.x, this.camera.quaternion.y, this.camera.quaternion.z, this.camera.quaternion.w);
-            camera.position.set(0, 0, 0);
-            camera.quaternion.set(0, 0, 0, 1);
-        });
+        // renderer.xr.addEventListener("sessionstart", (e) => {
+        //     this.cameraGroup.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
+        //     this.cameraGroup.quaternion.set(this.camera.quaternion.x, this.camera.quaternion.y, this.camera.quaternion.z, this.camera.quaternion.w);
+        //     camera.position.set(0, 0, 0);
+        //     camera.quaternion.set(0, 0, 0, 1);
+        // });
         
-        /** revert back actual camera position when VR is turned off */
-        renderer.xr.addEventListener("sessionend", (e) => {
-            camera.position.set(this.cameraGroup.position.x, this.cameraGroup.position.y, this.cameraGroup.position.z);
-            camera.quaternion.set(this.cameraGroup.quaternion.x, this.cameraGroup.quaternion.y, this.cameraGroup.quaternion.z, this.cameraGroup.quaternion.w);
-            this.cameraGroup.position.set(0, 0, 0);
-            this.cameraGroup.quaternion.set(0, 0, 0, 1);
-        });
+        // /** revert back actual camera position when VR is turned off */
+        // renderer.xr.addEventListener("sessionend", (e) => {
+        //     camera.position.set(this.cameraGroup.position.x, this.cameraGroup.position.y, this.cameraGroup.position.z);
+        //     camera.quaternion.set(this.cameraGroup.quaternion.x, this.cameraGroup.quaternion.y, this.cameraGroup.quaternion.z, this.cameraGroup.quaternion.w);
+        //     this.cameraGroup.position.set(0, 0, 0);
+        //     this.cameraGroup.quaternion.set(0, 0, 0, 1);
+        // });
     
         renderer.xr.enabled = true;
         document.body.appendChild(VRButton.createButton(renderer));
@@ -84,11 +93,6 @@ class test3d {
         camera.position.z = 200; //sets camera position
         animation_utils.add_resize_listener(renderer, camera);
         scene_container.classList.add("active");
-
-        this.cameraGroup = new THREE.Group(); 
-        this.cameraGroup.position.copy(camera.position); // Initially copy the camera position
-        this.cameraGroup.quaternion.copy(camera.quaternion); // Copy the camera rotation (quaternion)
-        scene.add(this.cameraGroup); // Add the cameraGroup to the scene
 
         // let VR = true; //VR if true, AR if false
         // if (VR) {
