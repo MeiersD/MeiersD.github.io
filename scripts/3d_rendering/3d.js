@@ -1,5 +1,6 @@
 import * as THREE from '../templates/three.module.js';
 import { ARButton } from '../templates/ARButton.js';
+import { VRButton } from '../templates/VRButton.js';
 import { animation_utils } from './utils/animation_utils.js';
 import { color_utils } from './utils/color_utils.js';
 import { OrbitControls } from '../templates/OrbitControls.js'; // Correct import path
@@ -47,6 +48,35 @@ class test3d {
         });
     }
 
+    setupVR() {
+        // controller1 = renderer.xr.getController(0); // Get the first controller
+        // controller2 = renderer.xr.getController(1); // Get the second controller
+        // scene.add(controller1);
+        // scene.add(controller2);
+
+        console.log("setting up vr");
+
+        /** position VR camera with respect to actual camera on session start */
+        renderer.xr.addEventListener("sessionstart", (e) => {
+            this.cameraGroup.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
+            this.cameraGroup.quaternion.set(this.camera.quaternion.x, this.camera.quaternion.y, this.camera.quaternion.z, this.camera.quaternion.w);
+            camera.position.set(0, 0, 0);
+            camera.quaternion.set(0, 0, 0, 1);
+        });
+        
+        /** revert back actual camera position when VR is turned off */
+        renderer.xr.addEventListener("sessionend", (e) => {
+            camera.position.set(this.cameraGroup.position.x, this.cameraGroup.position.y, this.cameraGroup.position.z);
+            camera.quaternion.set(this.cameraGroup.quaternion.x, this.cameraGroup.quaternion.y, this.cameraGroup.quaternion.z, this.cameraGroup.quaternion.w);
+            this.cameraGroup.position.set(0, 0, 0);
+            this.cameraGroup.quaternion.set(0, 0, 0, 1);
+        });
+    
+        renderer.xr.enabled = true;
+        document.body.appendChild(VRButton.createButton(renderer));
+    }
+
+
     initialize_scene() {
 
         renderer.setSize(render_width, render_height);
@@ -55,8 +85,23 @@ class test3d {
         animation_utils.add_resize_listener(renderer, camera);
         scene_container.classList.add("active");
 
-        const ar_button = ARButton.createButton(renderer);
-        scene_container.appendChild(ar_button);
+        this.cameraGroup = new THREE.Group(); 
+        this.cameraGroup.position.copy(camera.position); // Initially copy the camera position
+        this.cameraGroup.quaternion.copy(camera.quaternion); // Copy the camera rotation (quaternion)
+        scene.add(this.cameraGroup); // Add the cameraGroup to the scene
+
+        // let VR = true; //VR if true, AR if false
+        // if (VR) {
+            // const vr_button = VRButton.createButton(renderer);
+            // scene_container.appendChild(vr_button);
+            this.setupVR();
+        // }else{
+        //     const ar_button = ARButton.createButton(renderer);
+        //     scene_container.appendChild(ar_button);
+        // }
+        
+        
+        
         scene_container.classList.add("active");
         renderer.xr.enabled = true;
     }
@@ -117,7 +162,7 @@ class test3d {
             updateModelDisplay();
             updateSpotlightPosition(spotlight, camera);
             renderer.render(scene, camera);
-            // requestAnimationFrame(animate);
+            //requestAnimationFrame(animate);
             renderer.setAnimationLoop(animate);
         };
 
