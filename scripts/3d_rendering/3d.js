@@ -54,14 +54,10 @@ class test3d {
         // this.cameraGroup.quaternion.copy(camera.quaternion); // Copy the camera rotation (quaternion)
         // scene.add(this.cameraGroup); // Add the cameraGroup to the scene
 
-        controller1 = renderer.xr.getController(0);
-        controller2 = renderer.xr.getController(1);
+        let controller1 = renderer.xr.getController(0);
+        let controller2 = renderer.xr.getController(1);
         scene.add(controller1);
         scene.add(controller2);
-
-        const controllerModelFactory = new THREE.XRButton.createControllerModel(renderer);
-        controller1.add(controllerModelFactory);
-        controller2.add(controllerModelFactory);
 
         console.log("setting up vr");
 
