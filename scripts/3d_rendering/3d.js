@@ -118,7 +118,7 @@ class test3d {
             updateSpotlightPosition(spotlight, camera);
             renderer.render(scene, camera);
             // requestAnimationFrame(animate);
-            enderer.setAnimationLoop(animate);
+            renderer.setAnimationLoop(animate);
         };
 
         // Start animation loop
