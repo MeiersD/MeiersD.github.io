@@ -58,6 +58,7 @@ class test3d {
         const ar_button = ARButton.createButton(renderer);
         scene_container.appendChild(ar_button);
         scene_container.classList.add("active");
+        console.log(ar_button);
     }
 
     set_up_scene() {
