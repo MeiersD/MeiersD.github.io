@@ -1,4 +1,5 @@
 import * as THREE from '../templates/three.module.js';
+import { ARButton } from '../templates/ARButton.js';
 import { animation_utils } from './utils/animation_utils.js';
 import { color_utils } from './utils/color_utils.js';
 import { OrbitControls } from '../templates/OrbitControls.js'; // Correct import path
@@ -47,12 +48,16 @@ class test3d {
     }
 
     initialize_scene() {
-        scene_container.classList.add("active");
 
         renderer.setSize(render_width, render_height);
         scene_container.appendChild(renderer.domElement);
         camera.position.z = 200; //sets camera position
         animation_utils.add_resize_listener(renderer, camera);
+        scene_container.classList.add("active");
+
+        const ar_button = ARButton.createButton(renderer);
+        scene_container.appendChild(ar_button);
+        scene_container.classList.add("active");
     }
 
     set_up_scene() {
