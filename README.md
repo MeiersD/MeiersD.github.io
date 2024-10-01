@@ -1,7 +1,11 @@
 # This repository contains all of the code for my website.
 Please visit [here](https://meiersd.github.io) to see the website!
 
+Demo of WebXR functionality:
+[![WebXR protein demo](https://img.youtube.com/vi/nMdJu7KOOKk/maxresdefault.jpg)](https://www.youtube.com/watch?v=nMdJu7KOOKk)
+
 Key features:
+  - WebXR button allows users to visualize any protein in AR
   - Coloring
     - Color all atoms uniformly
     - Color all atoms based on their atom type
