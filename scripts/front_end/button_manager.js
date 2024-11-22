@@ -88,6 +88,8 @@ class ButtonManager {
 
     /**
      * Executes a specific function or sets a status based on the provided radio button value.
+     * 
+     * @param {string} value - The value of the selected radio button.
      */
     radio_switch(value){
         switch(value){
