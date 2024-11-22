@@ -1,4 +1,14 @@
+/**
+ * Full disclosure, this does not work at all.
+ * I tried to get this to work so the user could determine how much more time it would take to load the PDB file,
+ * but I couldn't figure out a way to make it work with the current code structure. 
+ * 
+ * As such, this file is entirely unused and remains here for posterity's sake.
+*/
 class LoadingBar {
+    /**
+     * Initializes the loading bar by setting up references to the loading bar container and loading bar elements, and initializes progress and total steps to zero.
+     */
     constructor(){
         this.loading_bar_container = document.getElementById('loading-bar-container');
         this.loading_bar = document.getElementById("loading-bar");
@@ -7,15 +17,19 @@ class LoadingBar {
         return;
     }
 
+    /**
+     * Activates and displays the loading bar based on the total number of steps (atoms) in the PDB file.
+     */
     show_loading_bar(total_steps) {    
-        // Make the loading bar visible
-        //total steps is the number of atoms in the pdb file.
         this.loading_bar_container.classList.add('active');
         this.loading_bar.classList.add('active');
         this.total_steps = total_steps;
         console.log("added loading bar, it ought to be active now");
     }
 
+    /**
+     * Asynchronously updates the loading bar's progress and adjusts its width based on the current progress relative to total steps.
+     */
     async update_loading_bar() {   
         await new Promise(resolve => setTimeout(resolve, 1000)); 
         // Increase the progress based on the passed increment value
