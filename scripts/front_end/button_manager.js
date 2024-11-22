@@ -2,6 +2,17 @@ class ButtonManager {
     constructor(pdb_fetcher, home){
         this.home = home; //gets access to the home object
         this.pdb_fetcher = pdb_fetcher; //gets access to home_script's copy of the pdb_fetcher instance
+        this.create_html_objects();
+
+        this.initial_speed = 250;
+
+        this.add_titles_to_buttons();
+    }
+
+    /**
+     * Initializes and assigns HTML elements to class properties for user interaction with PDB input, color, rotation, and trace options.
+     */
+    create_html_objects() {
         this.pdb_input = document.getElementById("pdb-input"); //makes a variable for the pdb textbox input
         this.color_radios = document.getElementsByName('color-type');
         this.rotation_radios = document.getElementsByName('rotation-type');
@@ -17,61 +28,67 @@ class ButtonManager {
         this.off_rotation_button = document.getElementById('off-rotation-button');
         this.on_trace_button = document.getElementById('on-trace-button');
         this.off_trace_button = document.getElementById('off-trace-button');
+    }
 
-        this.initial_speed = 250;
-
+    /**
+     * Adds descriptive titles to various buttons for color schemes, rotation, and trace options in the UI.
+     */
+    add_titles_to_buttons() {
         this.color_uniform_title =
             "White:\tall atoms colored white\n"
-        +   "Cyan: \tall atoms colored cyan\n"
-        +   "Magenta:   all atoms colored magenta\n"
-        +   "Gold: \tall atoms colored gold\n"
+            + "Cyan: \tall atoms colored cyan\n"
+            + "Magenta:   all atoms colored magenta\n"
+            + "Gold: \tall atoms colored gold\n";
         this.uniform_button.title = this.color_uniform_title;
 
-        this.color_atomic_title =        
+        this.color_atomic_title =
             "Classic:    Carbon is charcoal\n"
-        +   "\t\tNitrogen is blue\n"
-        +   "\t\tOxygen is red\n"
-        +   "\t\tSulfur is yellow\n"
-        +   "\t\tPhosphorus is orange\n"
-        +   "\t\tOther atoms are green\n"
-        +   "Pastel:     Carbon is slate-gray\n"
-        +   "\t\tNitrogen is sky-blue\n"
-        +   "\t\tOxygen is watermelon\n"
-        +   "\t\tSulfur is sunshine\n"
-        +   "\t\tPhosphorus is neon-orange\n"
-        +   "\t\tOther atoms are aquamarine\n"
+            + "\t\tNitrogen is blue\n"
+            + "\t\tOxygen is red\n"
+            + "\t\tSulfur is yellow\n"
+            + "\t\tPhosphorus is orange\n"
+            + "\t\tOther atoms are green\n"
+            + "Pastel:     Carbon is slate-gray\n"
+            + "\t\tNitrogen is sky-blue\n"
+            + "\t\tOxygen is watermelon\n"
+            + "\t\tSulfur is sunshine\n"
+            + "\t\tPhosphorus is neon-orange\n"
+            + "\t\tOther atoms are aquamarine\n";
         this.atomic_button.title = this.color_atomic_title;
 
         this.color_residue_title =
             "Magma:  Browns are hydrophobic\n"
-        +   "\t\tReds are polar\n"
-        +   "\t\tYellows are hydrophilic\n"
-        +   "\t\tOther atoms are white\n"
-        +   "Plasma:   Purples are hydrophobic\n"
-        +   "\t\tBlues and greens are polar\n"
-        +   "\t\tYellows are hydrophilic\n"
-        +   "\t\tOther atoms are red\n"
-        +   "Rainbow: Residues are colored diversely\n"
-        +   "\t\tOther atoms are black"
+            + "\t\tReds are polar\n"
+            + "\t\tYellows are charged\n"
+            + "\t\tOther atoms are white\n"
+            + "Plasma:   Purples are hydrophobic\n"
+            + "\t\tBlues and greens are polar\n"
+            + "\t\tYellows are charged\n"
+            + "\t\tOther atoms are red\n"
+            + "Rainbow: Residues are colored diversely\n"
+            + "\t\tOther atoms are black";
         this.residue_button.title = this.color_residue_title;
 
-        this.on_rotation_button_title = 
-            "Automatically rotate the macromolecule along one of these axes"
+        this.on_rotation_button_title =
+            "Automatically rotate the macromolecule along one of these axes";
         this.on_rotation_button.title = this.on_rotation_button_title;
 
-        this.off_rotation_button_title = 
-            "Remove automatic rotation of the macromolecule"
+        this.off_rotation_button_title =
+            "Remove automatic rotation of the macromolecule";
         this.off_rotation_button.title = this.off_rotation_button_title;
 
-        this.on_trace_button_title = 
-            "Replace atomistic model with line tracing adjacent atoms "
+        this.on_trace_button_title =
+            "Replace atomistic model with line tracing adjacent atoms ";
         this.on_trace_button.title = this.on_trace_button_title;
 
-        this.off_trace_button_title = 
-            "Replace trace model with atomistic model"
+        this.off_trace_button_title =
+            "Replace trace model with atomistic model";
         this.off_trace_button.title = this.off_trace_button_title;
     }
 
+    /**
+     * Executes a specific function or sets a status based on the provided radio button value.
+     */
     radio_switch(value){
         switch(value){
             case "uniform-color":
@@ -101,6 +118,9 @@ class ButtonManager {
         }        
     }
 
+    /**
+     * Initializes event listeners for button interactions, checking PDB input and handling changes in color, rotation, and trace radio buttons.
+     */
     initiate_button_event_listeners(){
         
         this.pdb_fetcher.check_pdb_input(this.pdb_input);
@@ -121,6 +141,9 @@ class ButtonManager {
         });
     }
 
+    /**
+     * Creates and appends a uniform color menu to the animation menu, allowing users to select a uniform color for the visualization.
+     */
     case1(){
         if(this.atomic_color_menu) this.atomic_color_menu.remove();
         if(this.residue_color_menu) this.residue_color_menu.remove();
@@ -145,6 +168,9 @@ class ButtonManager {
         this.pdb_fetcher.change_coloring("white");
     }
 
+    /**
+     * Creates and appends an atomic color menu to the animation menu, allowing users to select a color scheme for atoms.
+     */
     case2(){
         if(this.uniform_color_menu) this.uniform_color_menu.remove();
         if(this.residue_color_menu) this.residue_color_menu.remove();
@@ -166,6 +192,9 @@ class ButtonManager {
         this.pdb_fetcher.change_coloring("classic");
     }
 
+    /**
+     * Creates and appends a residue color menu to the animation menu, allowing users to select a color scheme for residues.
+     */
     case3(){
         if(this.atomic_color_menu) this.atomic_color_menu.remove();
         if(this.uniform_color_menu) this.uniform_color_menu.remove();
@@ -188,6 +217,9 @@ class ButtonManager {
         this.pdb_fetcher.change_coloring("magma");
     }
 
+    /**
+     * Creates and appends a rotation menu to the animation menu, allowing users to adjust rotation speeds along the X, Y, and Z axes via sliders.
+     */
     case4(){
         this.on_rotation_menu = document.createElement('on-rotation-menu');
         this.animation_menu_rotation.appendChild(this.on_rotation_menu);
@@ -214,6 +246,9 @@ class ButtonManager {
         });
     }
 
+    /**
+     * Resets the rotation speed and updates the rotation sliders to zero.
+     */
     case5(){
         this.pdb_fetcher.change_rotation_speed(0, 0, 0);
         document.getElementById("rotation-x").value = 0;
