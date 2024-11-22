@@ -31,7 +31,7 @@ var color_substatus = "classic";
  */
 class test3d {
     constructor(file) {
-        this.parse_pdb = new parsePDB(file, this);
+        this.parse_pdb = new parsePDB(file);
         this.atom_array = [];
         this.force_rebuild = false;
         this.sticks_protein;
