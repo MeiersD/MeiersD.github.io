@@ -1,5 +1,10 @@
-var atom_array = [];
-
+/**
+ * Interprets a color value and applies the corresponding color scheme to an array of atoms.
+ * 
+ * @param {string} value - The color scheme to apply, such as 'white', 'cyan', 'magenta', etc.
+ * @param {Array} atom_array - An array of Atom objects to which the color scheme will be applied.
+ * @returns {Array} The modified atom_array with the applied color scheme.
+ */
 function interpret_colors(value, atom_array){
     switch (value){
         case "white":
@@ -24,6 +29,12 @@ function interpret_colors(value, atom_array){
     }
 }
 
+/**
+ * Assigns magma-inspired colors to atoms in the array based on their residue type.
+ * 
+ * @param {Array} atom_array - An array of Atom objects representing the atoms to be colored.
+ * @returns {Array} The modified atom_array with assigned colors.
+ */
 function set_residue_magma(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].residue_type){
@@ -111,6 +122,12 @@ function set_residue_magma(atom_array){
     return atom_array;
 }
 
+/**
+ * Assigns plasma colors to atoms in the array based on their residue type.
+ * 
+ * @param {Array} atom_array - An array of Atom objects representing the atoms to be colored.
+ * @returns {Array} The modified atom_array with assigned colors.
+ */
 function set_residue_plasma(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].residue_type){
@@ -198,6 +215,12 @@ function set_residue_plasma(atom_array){
     return atom_array;
 }
 
+/**
+ * Assigns rainbow colors to atoms in the array based on their residue type.
+ * 
+ * @param {Array} atom_array - An array of Atom objects representing the atoms to be colored.
+ * @returns {Array} The modified atom_array with assigned colors.
+ */
 function set_residue_rainbow(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].residue_type){
@@ -285,6 +308,11 @@ function set_residue_rainbow(atom_array){
     return atom_array;
 }
 
+/**
+ * Assigns classic colors to atoms in the array based on their atom type.
+ * @param {Array} atom_array - The array of atom objects to be colored.
+ * @returns {Array} The updated array of atoms with classic colors.
+ */
 function set_atomistic_classic(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].atom_type){
@@ -314,6 +342,11 @@ function set_atomistic_classic(atom_array){
     return atom_array;
 }
 
+/**
+ * Assigns pastel colors to atoms in the array based on their atom type.
+ * @param {Array} atom_array - The array of atom objects to be colored.
+ * @returns {Array} The updated array of atoms with pastel colors.
+ */
 function set_atomistic_pastel(atom_array){
     for (let i = 0; i < atom_array.length; i++){
         switch (atom_array[i].atom_type){
@@ -343,6 +376,12 @@ function set_atomistic_pastel(atom_array){
     return atom_array;
 }
 
+/**
+ * Sets a uniform color for all atoms in the given array.
+ * @param {Array} atom_array - The array of atom objects to be colored.
+ * @param {string} color - The color to be applied to each atom.
+ * @returns {Array} The updated array of atoms with the new color.
+ */
 function set_uniform(atom_array, color){
     for (let i = 0; i < atom_array.length; i++){
         atom_array[i].color = color;
