@@ -18,7 +18,7 @@ function build_atomistic_model(atom_array){
     const bounding_box = new THREE.Box3(); // To calculate the bounding box of the protein
 
     for (let i = 0; i < atom_array.length; i++){
-        if (atom_array[i].atom_type == "H"){ break; }
+        if (atom_array[i].atom_type == "H"){ continue; }
         var atom_color = atom_array[i].color;
         var geometry = new THREE.SphereGeometry(0.5, 15, 15);
         var material = new THREE.MeshPhongMaterial({ color: atom_color });
