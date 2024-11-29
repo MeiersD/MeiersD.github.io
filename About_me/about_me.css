@@ -33,7 +33,7 @@
 }
 
 .link:hover {
-    color: #949494;          /* Optional: Change color on hover for better visibility */
+    color: #949494 !important;          /* Optional: Change color on hover for better visibility */
 }
 
 .link:visited{
